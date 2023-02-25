@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+        <variable
+            name="otherUserProfileViewModel"
+            type="com.example.instagramv1.ui.mainscreen.othersprofilescreen.OthersProfileViewModel" />
+        <import type="com.example.instagramv1.utils.BindingAdaptersKt"/>
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OthersProfileFragment"
+    tools:context=".ui.mainscreen.othersprofilescreen.OthersProfileFragment"
     style="@style/ProfileFragmentStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,13 +41,26 @@
             style="@style/AppNameLogoStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cheri"
+            android:textStyle="bold"
             android:text="Profile"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvProfile"-->
+<!--            style="@style/AppNameLogoStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cheri"-->
+<!--            android:text="Profile"-->
+<!--            android:textSize="25sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 
 
@@ -55,6 +77,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:id="@+id/coordinator"
         app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/quagmire" />
+                            app:imageBitmap="@{otherUserProfileViewModel.profilePicture}" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -105,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Glenn Quagmire"
+                        android:text="@{otherUserProfileViewModel.fullName }"
                         style="@style/TextViews"
                         android:textSize="25sp"
                         android:textStyle="bold"
@@ -118,7 +141,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="aka"
-                        style="@style/TextViews"
 
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +151,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="quagmire_911"
+                        android:text="@{otherUserProfileViewModel.userName }"
                         style="@style/TextViews"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +176,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/TextViews"
-                            android:text="45"
+                            android:text="@{String.valueOf(otherUserProfileViewModel.noOfPosts)}"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +215,7 @@
                             style="@style/TextViews"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="45"
+                            android:text="@{String.valueOf(otherUserProfileViewModel.noOfFollowers) }"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +250,7 @@
                             android:id="@+id/tvFollowingCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="45"
+                            android:text="@{String.valueOf(otherUserProfileViewModel.noOfFollowing) }"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -252,19 +274,47 @@
 
 
                     <Button
-                        android:id="@+id/btnEditProfile"
+                        android:id="@+id/btnFollow"
                         android:backgroundTint="@color/facebookBlue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Edit Profile"
+                        android:text="Follow"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="@+id/followingCountLayout"
                         app:layout_constraintStart_toStartOf="@+id/postCountLayout"
                         app:layout_constraintTop_toBottomOf="@+id/followersCountLayout" />
 
+                    <Button
+                        android:id="@+id/btnFollowing"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        style="@style/deleteButton"
+                        android:text="Following"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/followingCountLayout"
+                        app:layout_constraintStart_toStartOf="@+id/postCountLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/followersCountLayout" />
+
+                    <Button
+                        android:id="@+id/btnRequested"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        style="@style/deleteButton"
+                        android:text="Requested"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/followingCountLayout"
+                        app:layout_constraintStart_toStartOf="@+id/postCountLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/followersCountLayout" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -273,9 +323,10 @@
 
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_grid_on_24"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_outline_posts_icon_24"
+
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"/>
 
@@ -292,16 +343,138 @@
 
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_profile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/pbLoading"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    app:trackThickness="1dp"
+                    app:indicatorColor="@color/facebookBlue"
+                    />
+            </FrameLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/tvNoResultsFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No Posts found "
+            android:id="@+id/tvResults"
+            android:textSize="20dp"
+            />
+        </androidx.core.widget.NestedScrollView>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/tvPrivateAccountFound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintBottom_toTopOf="@id/photosOfYouTv"
+                        android:src="@drawable/ic_outline_lock_24"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/photosOfYouTv"
+                        android:text="This Account is Private"
+                        android:textStyle="bold"
+                        style="@style/TextViews"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/photosOfYouTv"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="10dp"
+                        android:text="Follow this account to see their posts"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <FrameLayout
+        android:id="@+id/profileLoading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:trackThickness="1dp"
+            app:indicatorColor="@color/facebookBlue"
+            />
+
+
+    </FrameLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

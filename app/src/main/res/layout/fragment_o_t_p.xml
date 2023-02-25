@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="loginViewModel"
+            type="com.example.instagramv1.ui.authscreen.loginscreen.LoginViewModel" />
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.authscreen.loginscreen.OTPFragment"
+    android:orientation="vertical"
+    style="@style/PostViewStyle">
+
+
+    <ImageButton
+        android:id="@+id/backImageBtn"
+        android:background="@null"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp">
+
+        <TextView
+            android:id="@+id/tvEnterPassword"
+            style="@style/TextViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="OTP Verification"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEnterPhoneOrEmail"
+            style="@style/MaterialTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEnterPassword">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiPhoneOrEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Phone number or Email"
+                android:inputType="textPersonName"
+                android:maxLength="30"
+                android:text="@={loginViewModel.otpUserInfo}"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btnSendOtp"
+            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:text="SEND OTP"
+            android:enabled="false"
+            android:backgroundTint="@color/facebookBlue"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEnterPhoneOrEmail"
+            android:textColor="@color/white"
+            />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>
+
+</layout>

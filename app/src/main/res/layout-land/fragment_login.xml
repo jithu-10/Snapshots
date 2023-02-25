@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="loginViewModel"
+            type="com.example.instagramv1.ui.authscreen.loginscreen.LoginViewModel" />
+    </data>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.authscreen.loginscreen.LoginFragment"
+    android:paddingEnd="25dp"
+    android:paddingStart="25dp"
+    style="@style/PostViewStyle">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/camera_logo_1"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/appName"-->
+<!--        android:layout_width="150dp"-->
+
+<!--        android:layout_height="50dp"-->
+<!--        android:src="@drawable/instagram_name"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/logo" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="SnapShots"
+        android:fontFamily="@font/cheri"
+        style="@style/AppNameLogoStyle"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:id="@+id/appName"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvLogin"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Login"-->
+<!--        android:textSize="25sp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/facebookBlue"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appName" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etUsernameOrEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appName"
+        android:layout_marginTop="20dp"
+
+        style="@style/MaterialTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameOrEmailEt"
+            android:maxLength="30"
+            android:hint="Username, email or mobile"
+            android:text="@={loginViewModel.userInfo}"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btnForgotPassword"
+        android:background="@android:color/transparent"
+        style="@style/TextViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_marginTop="5dp"
+        android:padding="0dp"
+        android:text="Forgot Password?"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/btnContinue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnContinue"
+
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:text="Continue"
+        android:backgroundTint="@color/facebookBlue"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsernameOrEmail"
+        android:textColor="@color/white"
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvForgotPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:text="Forgot Password?"-->
+
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnLogin"-->
+<!--        style="@style/TextViews"/>-->
+
+<!--    <Button-->
+<!--        style="@style/TextViews"-->
+<!--        android:id="@+id/btnForgotPassword"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:minWidth="0dp"-->
+<!--        android:minHeight="0dp"-->
+<!--        android:padding="0dp"-->
+<!--        android:text="Forgot Password?"-->
+<!--        android:textAllCaps="false"-->
+
+<!--        app:layout_constraintBottom_toTopOf="@id/tvOr"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvOr"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Or"-->
+<!--        android:textColor="@color/dimGrey"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/btnCreateAccount"/>-->
+
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        style="@style/TextViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:background="@android:color/transparent"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/signup"
+        android:textAllCaps="false"
+        android:textColor="@color/facebookBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword" />
+
+<!--    <Button-->
+<!--        style="@style/TextViews"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:minWidth="0dp"-->
+<!--        android:minHeight="0dp"-->
+<!--        android:padding="0dp"-->
+<!--        android:text="Sign Up"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/btnCreateAccount"-->
+<!--        app:layout_constraintStart_toEndOf="@id/btnCreateAccount"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/btnCreateAccount" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/orgLogo"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:src="@drawable/zohocoloredlogo"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+</layout>

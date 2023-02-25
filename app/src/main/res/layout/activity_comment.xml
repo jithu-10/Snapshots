@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.example.instagramv1.ui.commentscreen.CommentViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CommentActivity">
+    tools:context=".ui.commentscreen.CommentActivity">
 
 
 
@@ -14,28 +20,103 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:padding="10dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgViewBackBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_baseline_arrow_back_new_24"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvComments"-->
+<!--            style="@style/AppNameLogoStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cheri"-->
+<!--            android:text="Comments"-->
+<!--            android:textSize="25sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/tvComments"
             style="@style/AppNameLogoStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cheri"
+            android:textStyle="bold"
             android:text="Comments"
             android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/delete_comment_bar"
+        style="@style/ToolBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/facebookBlue"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgViewCloseBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_delete_close_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="5dp" />
+
+        <ImageView
+            android:id="@+id/imgViewDeleteBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_cmnt_delete_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="5dp" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvComments"-->
+        <!--            style="@style/AppNameLogoStyle"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:fontFamily="@font/cheri"-->
+        <!--            android:text="Comments"-->
+        <!--            android:textSize="25sp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:textColor="#FFFFFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -52,11 +133,38 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"/>
 
-
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/pbLoading"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/edit_comment_section"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/PostViewStyle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintVertical_bias="0.0">
+
+
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:trackThickness="1dp"
+            app:indicatorColor="@color/facebookBlue"
+            />
+    </FrameLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         style="@style/PostViewStyle"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -68,7 +176,11 @@
             android:id="@+id/scrollable_view"
             style="@style/PostViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/post_description"
@@ -94,7 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/default_user_image" />
+                        app:imageBitmap="@{model.postOwnerProfilePicture}" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -104,7 +216,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="peter_10"
+                    android:text="@{model.postOwnerUserName }"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
                     app:layout_constraintTop_toTopOf="@id/cardViewPostOwnerImage" />
@@ -116,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="@string/onlydesctext"
+                    android:text="@{model.postDescription}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
                     app:layout_constraintTop_toBottomOf="@id/comment_owner_name" />
@@ -135,20 +247,33 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/comments_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/comment_section_divider" />
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/extra_section"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                style="@style/PostViewStyle"
+                app:layout_constraintTop_toBottomOf="@id/comments_recycler_view"
+
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/edit_comment_section"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/PostViewStyle"
         android:paddingBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         >
@@ -175,17 +300,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_user_image" />
+                app:imageBitmap="@{model.userImage}"
+                />
 
         </androidx.cardview.widget.CardView>
 
         <EditText
+            android:id="@+id/add_comment"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
+            android:enabled="false"
             android:hint="Add a comment"
+            android:text="@={model.commentText}"
             android:textSize="15dp"
+            android:maxLength="1000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/img_view_send_icon"
             app:layout_constraintStart_toEndOf="@id/cardViewUserImage"
@@ -196,7 +326,18 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="5dp"
+            android:visibility="gone"
             android:src="@drawable/ic_baseline_send_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerNew" />
+        <ImageView
+            android:id="@+id/img_view_send_icon_disabled"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="5dp"
+
+            android:src="@drawable/ic_baseline_send_disabled_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dividerNew" />
@@ -208,3 +349,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserConnectionsFragment"
+    tools:context=".ui.mainscreen.profilescreen.connectionscreen.UserConnectionsFragment"
     style="@style/ProfileFragmentStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,12 +27,25 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/tvConnections"-->
+<!--            style="@style/AppNameLogoStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cheri"-->
+<!--            android:text="Connections"-->
+<!--            android:textSize="25sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
         <TextView
             android:id="@+id/tvConnections"
             style="@style/AppNameLogoStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cheri"
+            android:textStyle="bold"
             android:text="Connections"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +67,8 @@
         android:id="@+id/connectionsTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="fill"
         style="@style/TabLayoutStyle"
         app:tabRippleColor="@null"
         app:tabMode="fixed"

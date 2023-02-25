@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Filter"-->
+<!--        style="@style/TextViews"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="25sp"-->
+<!--        android:layout_gravity="center"-->
+
+<!--        />-->
+
+    <RadioGroup
+        android:id="@+id/filterRadioGroup"
+        android:checkedButton="@+id/sortByDateDescRadioBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/sortByDateDescRadioBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Recently added posts"
+            android:padding="20dp"/>
+        <RadioButton
+            android:id="@+id/sortByDateAscRadioBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:text="Old posts"/>
+        <RadioButton
+            android:id="@+id/sortByMostLikesRadioBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:text="Most Liked Post"/>
+        <RadioButton
+            android:id="@+id/sortByMostCommentedRadioBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:text="Most Commented Post"/>
+    </RadioGroup>
+
+</LinearLayout>
+</layout>

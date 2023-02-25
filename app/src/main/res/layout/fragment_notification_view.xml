@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/PostViewStyle"
-    tools:context=".NotificationViewFragment"
-    android:padding="10dp">
+    tools:context=".ui.mainscreen.notificationscreen.NotificationViewFragment"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -17,5 +17,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:id="@+id/pbLoading"
+        app:trackThickness="1dp"
+        app:indicatorColor="@color/facebookBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNoResultsFound"
+        android:text="No updates yet"
+        android:visibility="gone"
+        android:textSize="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

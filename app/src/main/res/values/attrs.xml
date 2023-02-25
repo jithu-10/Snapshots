@@ -6,4 +6,16 @@
         <attr name="readMoreColor" format="color|reference" />
         <attr name="numberOfBoldCharFromStart" format="integer"/>
     </declare-styleable>
+
+
+    <declare-styleable name="cropper__CropperView">
+        <attr name="cropper__grid_color" format="color"/>
+        <attr name="cropper__grid_thickness" format="dimension"/>
+        <attr name="cropper__grid_opacity" format="float"/>
+        <attr name="cropper__padding_color" format="color"/>
+        <attr name="cropper__add_padding_to_make_square" format="boolean"/>
+        <attr name="cropper__fit_to_center" format="boolean"/>
+    </declare-styleable>
+
+
 </resources>

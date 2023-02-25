@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+       <variable
+           name="editProfileViewModel"
+           type="com.example.instagramv1.ui.mainscreen.profilescreen.editprofilescreen.EditProfileViewModel" />
+        <import type="com.example.instagramv1.utils.BindingAdaptersKt"/>
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/PostViewStyle">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/pbLoading"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:layout_height="wrap_content"
+                app:trackThickness="1dp"
+                app:indicatorColor="@color/facebookBlue"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.mainscreen.profilescreen.editprofilescreen.EditProfileFragment"
+                android:orientation="vertical">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/topBar">
+                    <ImageButton
+                        android:id="@+id/backBtn"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_baseline_arrow_back_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        style="@style/TextViews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit Profile"
+                        android:textStyle="bold"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.498"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.533" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--                <ImageButton-->
+<!--                    android:id="@+id/backBtn"-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@null"-->
+<!--                    android:src="@drawable/ic_baseline_arrow_back_24"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="25dp">
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvRegisterUser"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ems="10"-->
+<!--                        android:text="Edit Profile"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:textAlignment="center"-->
+<!--                        android:textStyle="bold"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/editProfilePicCardView"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        app:cardCornerRadius="250dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/user_dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            app:imageBitmap="@{editProfileViewModel.profilePicture}" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Change picture"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        android:id="@+id/tvChangePicture"
+                        android:textColor="@color/facebookBlue"
+                        app:layout_constraintTop_toBottomOf="@id/editProfilePicCardView"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="10dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tvChangePicture"
+                        android:layout_marginTop="20dp"
+                        style="@style/MaterialTextInputLayout"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        android:hint="Full Name"
+                        app:startIconDrawable="@drawable/ic_baseline_account_circle_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fullNameEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:maxLength="25"
+                            android:text="@={editProfileViewModel.fullName}"
+
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/etFullName"
+                        android:layout_marginTop="10dp"
+                        app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        style="@style/MaterialTextInputLayout"
+                        android:hint="User Name">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:id="@+id/userNameEt"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:maxLength="20"
+                            android:text="@={editProfileViewModel.userName}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/etUserName"
+                        android:layout_marginTop="10dp"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        app:startIconDrawable="@drawable/ic_baseline_email_24"
+                        android:hint="Email"
+                        style="@style/MaterialTextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:text="@={editProfileViewModel.email}"
+                            android:id="@+id/emailEt"
+                            android:maxLength="30"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/etPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/etEmail"
+                        android:layout_marginTop="10dp"
+                        app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
+                        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+                        android:hint="Phone"
+                        style="@style/MaterialTextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:id="@+id/phoneEt"
+                            android:text="@={editProfileViewModel.phone}"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:backgroundTint="@color/facebookBlue"
+                        android:text="Update"
+                        android:enabled="false"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/etPhone" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </ScrollView>
+
+</layout>
+
+

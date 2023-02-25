@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="model"
+            type="com.example.instagramv1.model.UserMiniProfileData" />
+        <import type="com.example.instagramv1.utils.BindingAdaptersKt"/>
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/followRequestsLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp"
+    android:paddingTop="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     style="@style/PostViewStyle">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/suggested_user_image_card_view"
+        android:id="@+id/requested_user_image_card_view"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:cardCornerRadius="250dp"
@@ -19,28 +30,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/suggested_user_image"
+            android:id="@+id/requested_user_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/quagmire" />
+            app:imageBitmap="@{model.profile_picture}" />
 
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_suggested_user_name"
+        android:id="@+id/tv_requested_user_name"
         style="@style/TextViews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="quagmire_911"
+        android:text="@{model.user_name }"
         android:maxWidth="120dp"
         android:textSize="15sp"
         android:textStyle="bold"
 
         app:layout_constraintBottom_toTopOf="@+id/tvRequested"
 
-        app:layout_constraintStart_toEndOf="@+id/suggested_user_image_card_view"
+        app:layout_constraintStart_toEndOf="@+id/requested_user_image_card_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -48,30 +59,62 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="requested"
+        android:text="requested to follow you"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/suggested_user_image_card_view"
-        app:layout_constraintTop_toBottomOf="@+id/tv_suggested_user_name"
+        app:layout_constraintStart_toEndOf="@id/requested_user_image_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/tv_requested_user_name"
         app:layout_goneMarginStart="20dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:backgroundTint="@color/facebookBlue"
-        android:text="Confirm"
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="10dp"
-        android:textColor="@color/white"
-        android:id="@+id/btnFollow"
-        android:textAllCaps="false"
+        android:id="@+id/btnConfirm"
+        app:layout_constraintBottom_toBottomOf="@id/tvRequested"
+        app:layout_constraintEnd_toStartOf="@id/btnDelete"
+        app:layout_constraintTop_toTopOf="@id/tv_requested_user_name"
+        android:src="@drawable/ic_add_post_done_24"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btnDelete"
         app:layout_constraintBottom_toBottomOf="@id/tvRequested"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_suggested_user_name" />
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintTop_toTopOf="@id/tv_requested_user_name"/>
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:backgroundTint="@color/facebookBlue"-->
+<!--        android:text="Confirm"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:id="@+id/btnConfirm"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/tvRequested"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/btnDelete"-->
+<!--        app:layout_constraintTop_toTopOf="@id/tv_suggested_user_name" />-->
+
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:backgroundTint="@color/facebookBlue"-->
+<!--        android:text="Delete"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:id="@+id/btnDelete"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/tvRequested"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/tv_suggested_user_name" />-->
 
 
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
 
 
 

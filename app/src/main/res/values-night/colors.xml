@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dimGrey">#808080</color>
     <color name="dimBlue">#F5F8FD</color>
-    <color name="facebookBlue">#0064e0</color>
+<!--    <color name="facebookBlue">#0064e0</color>-->
+<!--    <color name="facebookBlue">#5594eb</color>-->
+        <color name="facebookBlue">#437be9</color>
     <color name="statusbarcolor">@color/black</color>
     <color name="read_more">#869ab7</color>
 </resources>
