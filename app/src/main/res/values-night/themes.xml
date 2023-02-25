@@ -1,0 +1,106 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.InstagramV1" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="LoginFragment" parent="Theme.InstagramV1">
+
+    </style>
+
+    <style name="TextViews">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+
+    <style name="MaterialOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="rippleColor">#A9A9A9</item>
+
+    </style>
+
+
+    <style name="MaterialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke_color</item>
+        <item name="hintTextColor">@color/facebookBlue</item>
+    </style>
+
+    <style name="BottomNavigationBarStyle">
+        <item name="backgroundTint">@color/black</item>
+        <item name="itemIconTint">@color/white</item>
+    </style>
+
+    <style name="ToolBarStyle">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="AppNameLogoStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ProfileFragmentStyle">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="SearchBarStyle">
+        <item name="android:backgroundTint">#262626</item>
+    </style>
+
+    <style name="RadioButtonStyle">
+        <item name="colorControlActivated">@color/facebookBlue</item>
+    </style>
+
+    <style name="SwitchStyle">
+        <item name="colorControlActivated">@color/facebookBlue</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/sheet_border</item>
+    </style>
+
+    <style name="TabLayoutStyle">
+        <item name="android:background">@drawable/table_layout_underline</item>
+        <item name="tabIconTint">@color/tab_layout_icon_color_selector</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabTextColor">@color/tab_layout_icon_color_selector</item>
+    </style>
+
+    <style name="PostViewStyle">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="deleteButton">
+        <item name="backgroundTint">#262626</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+
+
+
+
+
+</resources>

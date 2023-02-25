@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentActivity">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_page_toolbar"
+        style="@style/ToolBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgViewBackBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_baseline_arrow_back_new_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="5dp" />
+
+        <TextView
+            android:id="@+id/tvComments"
+            style="@style/AppNameLogoStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cheri"
+            android:text="Comments"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/edit_comment_section"
+        style="@style/PostViewStyle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollable_view"
+            style="@style/PostViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/post_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewPostOwnerImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    app:cardCornerRadius="250dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/post_owner_dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_user_image" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/comment_owner_name"
+                    style="@style/TextViews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="peter_10"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
+                    app:layout_constraintTop_toTopOf="@id/cardViewPostOwnerImage" />
+
+                <TextView
+                    android:id="@+id/comment"
+                    style="@style/TextViews"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/onlydesctext"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
+                    app:layout_constraintTop_toBottomOf="@id/comment_owner_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/comment_section_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@id/post_description" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/comment_section_divider" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/edit_comment_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+
+        <View
+            android:id="@+id/dividerNew"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUserImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerNew">
+
+            <ImageView
+                android:id="@+id/user_dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_user_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:hint="Add a comment"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_view_send_icon"
+            app:layout_constraintStart_toEndOf="@id/cardViewUserImage"
+            app:layout_constraintTop_toBottomOf="@id/dividerNew" />
+
+        <ImageView
+            android:id="@+id/img_view_send_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_baseline_send_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerNew" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

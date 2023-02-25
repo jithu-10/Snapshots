@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment"
+    android:padding="25dp"
+    style="@style/LoginFragment">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/camera_logo_1"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/appName"-->
+<!--        android:layout_width="150dp"-->
+
+<!--        android:layout_height="50dp"-->
+<!--        android:src="@drawable/instagram_name"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/logo" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="SnapShots"
+        android:fontFamily="@font/cheri"
+        style="@style/AppNameLogoStyle"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        android:id="@+id/appName"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvLogin"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Login"-->
+<!--        android:textSize="25sp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/facebookBlue"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/appName" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etUsernameOrEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appName"
+        android:layout_marginTop="30dp"
+
+        style="@style/MaterialTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username, email or mobile"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <Button
+        android:id="@+id/btnContinue"
+
+        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:text="Continue"
+        android:backgroundTint="@color/facebookBlue"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsernameOrEmail"
+        android:textColor="@color/white"
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvForgotPassword"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:text="Forgot Password?"-->
+
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/btnLogin"-->
+<!--        style="@style/TextViews"/>-->
+
+    <Button
+        style="@style/TextViews"
+        android:id="@+id/btnForgotPassword"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="Forgot Password?"
+        android:textAllCaps="false"
+
+        app:layout_constraintBottom_toTopOf="@id/tvOr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Or"
+        android:textColor="@color/dimGrey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCreateAccount"/>
+
+
+    <Button
+        android:background="@android:color/transparent"
+        style="@style/TextViews"
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:padding="0dp"
+
+        android:layout_marginBottom="30dp"
+        android:text="Don't have account? Sign Up"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/orgLogo"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:src="@drawable/zohocoloredlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

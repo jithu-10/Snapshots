@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:id="@+id/aboutLayout">
+
+        <ImageView
+            android:id="@+id/imgViewAbout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_outline_info_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="About"
+            style="@style/TextViews"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewAbout"
+            app:layout_constraintStart_toEndOf="@id/imgViewAbout"
+            app:layout_constraintTop_toTopOf="@+id/imgViewAbout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/privateAccountLayout">
+
+        <ImageView
+            android:id="@+id/imgViewAccountType"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_lock_open_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Private Account"
+            style="@style/TextViews"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewAccountType"
+            app:layout_constraintStart_toEndOf="@id/imgViewAccountType"
+            app:layout_constraintTop_toTopOf="@+id/imgViewAccountType" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/SwitchStyle"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/themeLayout">
+
+        <ImageView
+            android:id="@+id/imgViewTheme"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_outline_palette_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Theme"
+            style="@style/TextViews"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewTheme"
+            app:layout_constraintStart_toEndOf="@id/imgViewTheme"
+            app:layout_constraintTop_toTopOf="@+id/imgViewTheme" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light"
+                android:padding="5dp"
+                android:theme="@style/RadioButtonStyle"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dark"
+                android:theme="@style/RadioButtonStyle"
+                android:padding="5dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default"
+                android:theme="@style/RadioButtonStyle"
+                android:padding="5dp"/>
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/logoutLayout">
+
+        <ImageView
+            android:id="@+id/imgViewLogout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_logout_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:padding="10dp"
+            style="@style/TextViews"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewLogout"
+            app:layout_constraintStart_toEndOf="@id/imgViewLogout"
+            app:layout_constraintTop_toTopOf="@+id/imgViewLogout"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</LinearLayout>

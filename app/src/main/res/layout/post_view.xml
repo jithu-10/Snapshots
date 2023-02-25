@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/post_owner_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        style="@style/PostViewStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPostOwnerImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/post_owner_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_user_image" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_post_owner_user_name"
+            style="@style/TextViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="peter_10"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cardViewPostOwnerImage"
+            app:layout_constraintTop_toTopOf="@+id/cardViewPostOwnerImage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Quahog"
+            android:textSize="12sp"
+            style="@style/TextViews"
+            app:layout_constraintBottom_toBottomOf="@id/cardViewPostOwnerImage"
+            app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_owner_user_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/post_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/post_owner_details">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sampleimage" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/post_action_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/post_card_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/PostViewStyle">
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/imgViewLikeBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewCommentBtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            app:layout_constraintEnd_toEndOf="@+id/imgViewLikeBtn"
+            app:layout_constraintStart_toStartOf="@+id/imgViewLikeBtn"
+            app:layout_constraintTop_toBottomOf="@id/imgViewLikeBtn" />
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/imgViewCommentBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_outline_comment_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewSaveBtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imgViewLikeBtn"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            app:layout_constraintEnd_toEndOf="@+id/imgViewCommentBtn"
+            app:layout_constraintStart_toStartOf="@+id/imgViewCommentBtn"
+            app:layout_constraintTop_toBottomOf="@id/imgViewCommentBtn" />
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/imgViewSaveBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_outline_bookmark_border_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imgViewCommentBtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/saveTextView"
+            app:layout_constraintEnd_toEndOf="@+id/imgViewSaveBtn"
+            app:layout_constraintStart_toStartOf="@+id/imgViewSaveBtn"
+            app:layout_constraintTop_toBottomOf="@id/imgViewSaveBtn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/post_action_buttons"
+        style="@style/PostViewStyle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/desc_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.example.instagramv1.ReadMoreTextView
+                android:id="@+id/post_description"
+                style="@style/TextViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sampledesctext"
+                app:readMoreMaxLine="2"
+                app:numberOfBoldCharFromStart="8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="...more"-->
+<!--                android:id="@+id/tvMore"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@id/post_description"-->
+<!--                app:layout_constraintStart_toEndOf="@id/post_description"-->
+<!--                app:layout_constraintTop_toTopOf="@id/post_description" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvViewComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Comments"
+            android:paddingBottom="10dp"
+            app:layout_constraintStart_toStartOf="@id/desc_layout"
+            app:layout_constraintTop_toBottomOf="@id/desc_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

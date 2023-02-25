@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment"
+    style="@style/ProfileFragmentStyle">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile_page_toolbar"
+        style="@style/ToolBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgViewBackBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_arrow_back_new_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="5dp"/>
+
+        <TextView
+            android:id="@+id/tvProfile"
+            style="@style/AppNameLogoStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cheri"
+            android:text="Profile"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/imgViewSettingsBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_new_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"/>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/coordinator"
+        app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appBarLayout"
+            android:backgroundTint="@android:color/transparent">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/collpsingToolbar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:id="@+id/user_info_constraint_layout">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginTop="30dp"
+                        app:cardCornerRadius="250dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/user_dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/default_user_image" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tvFullName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Peter Griffin"
+                        style="@style/TextViews"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                    <TextView
+                        android:id="@+id/tvAka"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="aka"
+                        style="@style/TextViews"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+
+                        app:layout_constraintTop_toBottomOf="@id/tvFullName" />
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="peter_10"
+                        style="@style/TextViews"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+
+                        app:layout_constraintTop_toBottomOf="@id/tvAka" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/postCountLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+
+
+                        app:layout_constraintEnd_toStartOf="@+id/followersCountLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvUserName">
+
+                        <TextView
+                            android:id="@+id/tvPostsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextViews"
+                            android:text="45"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Posts"
+                            style="@style/TextViews"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvPostsCount" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/followersCountLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+
+                        app:layout_constraintEnd_toStartOf="@+id/followingCountLayout"
+
+
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/postCountLayout"
+                        app:layout_constraintTop_toBottomOf="@id/tvUserName">
+
+                        <TextView
+                            android:id="@+id/tvFollowersCount"
+                            style="@style/TextViews"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="45"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Followers"
+                            style="@style/TextViews"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvFollowersCount" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/followingCountLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/followersCountLayout"
+                        app:layout_constraintTop_toBottomOf="@id/tvUserName">
+
+                        <TextView
+                            android:id="@+id/tvFollowingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="45"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            style="@style/TextViews"/>
+
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Following"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvFollowingCount"
+                            style="@style/TextViews"/>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <Button
+                        android:id="@+id/btnEditProfile"
+                        style="@style/MaterialOutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Edit Profile"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/followingCountLayout"
+                        app:layout_constraintStart_toStartOf="@+id/postCountLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/followersCountLayout" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/profile_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/btnEditProfile"
+                style="@style/TabLayoutStyle"
+                app:tabRippleColor="@null"
+                android:layout_marginTop="10dp"
+                app:tabMode="fixed"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/profile_viewpager2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:fillViewport="true"
+            />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
