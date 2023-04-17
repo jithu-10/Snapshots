@@ -5,12 +5,12 @@
     <data>
         <variable
             name="model"
-            type="com.example.instagramv1.ui.commentscreen.CommentViewModel" />
+            type="com.example.instagramv1.ui.authscreen.commentscreen.CommentViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.commentscreen.CommentActivity">
+    tools:context=".ui.authscreen.commentscreen.CommentActivity">
 
 
 
@@ -18,7 +18,7 @@
         android:id="@+id/profile_page_toolbar"
         style="@style/ToolBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:padding="10dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
         android:id="@+id/delete_comment_bar"
         style="@style/ToolBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:background="@color/facebookBlue"
         android:padding="10dp"
         android:visibility="gone"
@@ -137,7 +137,7 @@
         android:id="@+id/pbLoading"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/PostViewStyle"
         app:layout_constraintHorizontal_bias="0.0"

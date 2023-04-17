@@ -14,4 +14,5 @@
         <color name="facebookBlue">#437be9</color>
     <color name="statusbarcolor">@color/black</color>
     <color name="read_more">#869ab7</color>
+
 </resources>

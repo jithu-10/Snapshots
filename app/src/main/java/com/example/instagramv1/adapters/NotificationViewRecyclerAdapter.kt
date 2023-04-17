@@ -85,6 +85,8 @@ class NotificationViewRecyclerAdapter(
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             notificationViewBinding.tvNotification.text = message
+
+
         }
     }
 }

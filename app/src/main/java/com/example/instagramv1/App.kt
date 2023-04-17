@@ -2,6 +2,7 @@ package com.example.instagramv1
 
 import android.app.Application
 import android.database.CursorWindow
+import android.graphics.Typeface
 import dagger.hilt.android.HiltAndroidApp
 import java.lang.reflect.Field
 
@@ -12,6 +13,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+
+
         try {
             val field: Field = CursorWindow::class.java.getDeclaredField("sCursorWindowSize")
             field.isAccessible = true
@@ -20,4 +23,6 @@ class App : Application() {
 
         }
     }
+
+
 }

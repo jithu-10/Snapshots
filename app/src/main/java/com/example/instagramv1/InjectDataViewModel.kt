@@ -4,13 +4,15 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.lifecycle.ViewModel
 import com.example.instagramv1.data.repository.InjectDataRepository
+import com.example.instagramv1.data.repository.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class InjectDataViewModel @Inject constructor(
-    private val injectDataRepository: InjectDataRepository
+    private val injectDataRepository: InjectDataRepository,
+    private val postRepository: PostRepository
 ) : ViewModel(){
 
     lateinit var context : Context
@@ -139,7 +141,9 @@ class InjectDataViewModel @Inject constructor(
                     images[i]),descriptions[i],locations[i],postIds[i])
         }
 
-
+        for(u in userIds){
+            postRepository.addReaction(u,1)
+        }
 
 
     }

@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramv1.R
+import com.example.instagramv1.adapters.NotificationUpdatesRecyclerAdapter
 import com.example.instagramv1.adapters.NotificationViewRecyclerAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,7 +45,19 @@ class NotificationViewFragment : Fragment() {
             viewModel.userId = userId
 
             val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-            val notificationAdapter = NotificationViewRecyclerAdapter(viewModel).apply {
+//            val notificationAdapter = NotificationViewRecyclerAdapter(viewModel).apply {
+//                stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+//            }
+//            recyclerView.adapter = notificationAdapter
+//            val configuration = resources.configuration
+//            if(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+//                recyclerView.layoutManager = GridLayoutManager(requireActivity(),2)
+//            }
+//            else{
+//                recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+//            }
+
+            val notificationAdapter = NotificationUpdatesRecyclerAdapter(viewModel).apply {
                 stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             }
             recyclerView.adapter = notificationAdapter
@@ -55,8 +69,23 @@ class NotificationViewFragment : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             }
 
-            lifecycleScope.launch {
-                viewModel.getNotifications().observe(requireActivity()){
+//            lifecycleScope.launch {
+//                viewModel.getNotifications().observe(requireActivity()){
+//                    notificationAdapter.setNotifications(it)
+//                    view.findViewById<View>(R.id.pbLoading).visibility = View.GONE
+//                    if(it.isEmpty()){
+//                        recyclerView.visibility = View.GONE
+//                        view.findViewById<TextView>(R.id.tvNoResultsFound).visibility = View.VISIBLE
+//                    }
+//                    else{
+//                        recyclerView.visibility = View.VISIBLE
+//                        view.findViewById<TextView>(R.id.tvNoResultsFound).visibility = View.GONE
+//                    }
+//                }
+//            }
+
+            lifecycleScope.launch{
+                viewModel.getNotificationUpdates().observe(requireActivity()){
                     notificationAdapter.setNotifications(it)
                     view.findViewById<View>(R.id.pbLoading).visibility = View.GONE
                     if(it.isEmpty()){

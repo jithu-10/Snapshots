@@ -4,10 +4,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.instagramv1.data.dao.*
-import com.example.instagramv1.data.entities.Connection
-import com.example.instagramv1.data.entities.ConnectionRequest
-import com.example.instagramv1.data.entities.Notification
-import com.example.instagramv1.data.entities.SearchHistory
+import com.example.instagramv1.data.entities.*
 import com.example.instagramv1.data.repository.UserRepository
 import com.example.instagramv1.model.*
 import java.util.*
@@ -16,7 +13,8 @@ class UserRepositoryImpl(
     private val userDao: UserDao,
     private val accountDao : AccountDao,
     private val connectionDao: ConnectionDao,
-    private val notificationDao : NotificationDao
+    private val notificationDao : NotificationDao,
+    private val notificationUpdateDao: NotificationUpdateDao
 ) : UserRepository
 {
 
@@ -82,6 +80,8 @@ class UserRepositoryImpl(
             if(!connectionDao.isConnected(userId,followed_user_id)){
                 connectionDao.addConnection(Connection(userId,followed_user_id))
                 notificationDao.addNotification(Notification(userId,followed_user_id,"started following you", Date()))
+                notificationUpdateDao.addNotificationUpdate(NotificationUpdate(userId,followed_user_id,Date(), NotificationType.FOLLOWS_YOU))
+                notificationDao.addNotificationCount(followed_user_id)
             }
 
         }
@@ -91,6 +91,8 @@ class UserRepositoryImpl(
     override suspend fun unfollowUser(followed_user_id: Int, userId: Int) {
         connectionDao.removeConnection(userId,followed_user_id)
         notificationDao.addNotification(Notification(userId,followed_user_id,"unfollows you", Date()))
+        notificationUpdateDao.addNotificationUpdate(NotificationUpdate(userId,followed_user_id,Date(),NotificationType.UNFOLLOWS_YOU))
+        notificationDao.addNotificationCount(followed_user_id)
     }
 
     override suspend fun getUserPrivacy(userId: Int) : LiveData<Boolean> {
@@ -147,6 +149,10 @@ class UserRepositoryImpl(
         return userDao.getNotifications(userId)
     }
 
+    override suspend fun getNotificationUpdates(userId: Int) : LiveData<List<NotificationViewData>>{
+        return userDao.getNotificationUpdates(userId)
+    }
+
     override suspend fun removeProfilePicture(userId: Int) {
         userDao.removeProfilePicture(null,userId)
     }
@@ -179,7 +185,13 @@ class UserRepositoryImpl(
         accountDao.updateEmail(userEditableData.email,userId)
         accountDao.updatePhone(userEditableData.phone,userId)
 
+    }
 
+    override suspend fun clearNotificationCount(userId: Int){
+        notificationDao.clearNotificationCount(userId)
+    }
 
+    override suspend fun getNotificationCount(userId: Int) : LiveData<Int>{
+        return notificationDao.getNotificationCount(userId)
     }
 }

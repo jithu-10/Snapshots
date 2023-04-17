@@ -75,10 +75,13 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
         }
         getPhotoDialogFragmentBinding.layoutTakePhoto.setOnClickListener {
             startCameraIntent2()
+
         }
 
         getPhotoDialogFragmentBinding.layoutChooseImage.setOnClickListener {
-            startGalleryIntent()
+            //startGalleryIntent()
+            openCropImageFragment()
+
         }
 
         getPhotoDialogFragmentBinding.layoutRemoveCurrentPicture.setOnClickListener {
@@ -124,9 +127,22 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
     }
 
-    private  fun startCameraIntent(){
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, CAMERA_REQUEST)
+
+
+    private val registerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+        if(result.resultCode == RESULT_OK){
+            loadNewImage(getRealPathFromURI(imageUri)!!)
+        } else {
+            deleteImage(imageUri)
+            imageUri = null
+        }
+    }
+
+    private fun deleteImage(uri: Uri?) {
+        if (uri != null) {
+            val contentResolver = requireActivity().contentResolver
+            contentResolver.delete(uri, null, null)
+        }
     }
 
     private fun startCameraIntent2(){
@@ -138,34 +154,13 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
         )
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(intent, PICTURE_RESULT)
+        registerResult.launch(intent)
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-//            val photo = data?.extras!!["data"] as Bitmap?
-//            addPostViewModel.postImage = photo
-//            addPostViewModel.orginalImage = photo
-//            Log.d("Special Log",photo.toString())
-//            openCropImageFragment()
-//        }
-//    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            PICTURE_RESULT ->  if (resultCode == RESULT_OK) {
-                try {
 
-                    loadNewImage(getRealPathFromURI(imageUri)!!)
 
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
-    fun getRealPathFromURI(contentUri: Uri?): String? {
+    private fun getRealPathFromURI(contentUri: Uri?): String? {
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursor: Cursor? = requireActivity().contentResolver.query(contentUri!!, proj, null, null, null)
         val column_index: Int? = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
@@ -208,7 +203,6 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
     private fun loadNewImage(filePath: String) {
         val bitmap = BitmapFactory.decodeFile(filePath)
-        //addPostViewModel.profilePicture = bitmap
         addPostViewModel.originalPicture = bitmap
         openCropImageFragment()
 

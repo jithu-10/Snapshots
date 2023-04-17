@@ -1,5 +1,6 @@
 package com.example.instagramv1.data.repository
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import com.example.instagramv1.data.entities.Post
 import com.example.instagramv1.model.*
@@ -15,8 +16,6 @@ interface PostRepository {
     suspend fun getAllPostsMostLiked(userId: Int) : LiveData<List<PostViewData>>
 
     suspend fun getAllPostsMostCommented(userId: Int) : LiveData<List<PostViewData>>
-
-
 
     suspend fun getPostsByLocation(userId: Int, location : String) : LiveData<List<PostViewData>>
 
@@ -57,4 +56,12 @@ interface PostRepository {
     suspend fun removeCommentReaction(userId: Int, commentId : Int)
 
     suspend fun deletePost(postId: Int)
+
+    suspend fun changePostLocation(postId: Int, location : String?)
+
+    suspend fun changePostDescription(postId: Int, description : String?)
+
+    suspend fun getPostImage(postId: Int) : Bitmap
+
+    suspend fun getPostFromComment(postId: Int) : Int
 }

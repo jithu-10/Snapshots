@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import com.example.instagramv1.data.dao.*
 import com.example.instagramv1.data.dataconvertors.BitmapConvertor
 import com.example.instagramv1.data.dataconvertors.DateConvertor
+import com.example.instagramv1.data.dataconvertors.NotificationTypeConvertor
 import com.example.instagramv1.data.entities.*
 
 @Database(
@@ -22,11 +23,13 @@ import com.example.instagramv1.data.entities.*
         CommentReaction::class,
         SavedPost::class,
         Notification::class,
-        SearchHistory::class],
+        SearchHistory::class,
+        NotificationCount::class,
+        NotificationUpdate::class],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(BitmapConvertor::class, DateConvertor::class)
+@TypeConverters(BitmapConvertor::class, DateConvertor::class, NotificationTypeConvertor::class)
 abstract class AppDatabase : RoomDatabase(){
 
 
@@ -40,6 +43,6 @@ abstract class AppDatabase : RoomDatabase(){
     abstract fun sampleDao(): SampleDao
     abstract fun savedPostDao(): SavedPostDao
     abstract fun notificationDao() : NotificationDao
-
+    abstract fun notificationUpdateDao() : NotificationUpdateDao
 
 }

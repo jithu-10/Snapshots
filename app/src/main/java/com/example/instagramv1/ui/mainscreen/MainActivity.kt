@@ -1,25 +1,30 @@
 package com.example.instagramv1.ui.mainscreen
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.example.instagramv1.*
 import com.example.instagramv1.ui.addpostscreen.AddPostActivity
+import com.example.instagramv1.ui.addpostscreen.PermissionNeededDialogFragment
 import com.example.instagramv1.ui.mainscreen.explorescreen.ExploreFragment
 import com.example.instagramv1.ui.mainscreen.explorescreen.ExplorePostsViewModel
 import com.example.instagramv1.ui.mainscreen.homescreen.HomeFragment
 import com.example.instagramv1.ui.mainscreen.notificationscreen.NotificationFragment
 import com.example.instagramv1.ui.mainscreen.notificationscreen.NotificationViewModel
 import com.example.instagramv1.ui.searchscreen.SearchViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -83,6 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpListeners2(){
         val bottomNavigationView = findViewById<NavigationBarView>(R.id.bottom_navigation)
+
         bottomNavigationView.setOnItemSelectedListener {
             Log.d("BackStacker",previousItem.toString()+" "+it.itemId)
             when(it.itemId){
@@ -120,6 +126,7 @@ class MainActivity : AppCompatActivity() {
 
     private  fun setUpListeners(){
         val bottomNavigationView = findViewById<NavigationBarView>(R.id.bottom_navigation)
+
         bottomNavigationView.setOnItemSelectedListener {
             Log.d("BackStacker",previousItem.toString()+" "+it.itemId)
             when(it.itemId){
@@ -201,14 +208,22 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.add_post_page -> {
-                    Intent(this, AddPostActivity::class.java).apply {
-                        startActivity(this)
+                    getPermission()
+                    if(checkForPermission()){
+                        Intent(this, AddPostActivity::class.java).apply {
+                            startActivity(this)
+                        }
+
                     }
+
+
+
                 }
 
                 R.id.notification_page -> {
 
                     if(previousItem!=R.id.notification_page){
+
                         supportFragmentManager.beginTransaction().apply {
                             previousItem = R.id.notification_page
                             addToBackStack("NOTIFICATION_FRAGMENT")
@@ -297,6 +312,16 @@ class MainActivity : AppCompatActivity() {
                 viewModel.privateAccount = it.private_account
 
             }
+            notificationViewModel.userId = viewModel.userId
+            notificationViewModel.getNotificationCount().observe(this@MainActivity){
+                notificationViewModel.numberOfNotifications = it
+                findViewById<BottomNavigationView>(R.id.bottom_navigation).getOrCreateBadge(R.id.notification_page).apply {
+                    isVisible = notificationViewModel.numberOfNotifications != 0
+                    backgroundColor = resources.getColor(R.color.notification)
+                    verticalOffset = 24
+                    horizontalOffset = 27
+                }
+            }
 
         }
     }
@@ -315,6 +340,51 @@ class MainActivity : AppCompatActivity() {
 ////            //replaceFragment(homeFragment)
 ////        }
 //    }
+
+    private fun getPermission(){
+        if(ActivityCompat.checkSelfPermission(this,READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                arrayOf(READ_EXTERNAL_STORAGE),
+                REQUEST_CODE_READ_PERMISSION);
+        }
+    }
+
+    private fun checkForPermission() : Boolean{
+        return ActivityCompat.checkSelfPermission(this,READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object{
+        const val REQUEST_CODE = 1
+        private const val REQUEST_CODE_READ_PERMISSION = 22
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == REQUEST_CODE_READ_PERMISSION){
+            if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent(this, AddPostActivity::class.java).apply {
+                    startActivity(this)
+                }
+                //return
+            }
+            else{
+                openPermissionNeededDialog()
+            }
+        }
+    }
+
+
+    fun openPermissionNeededDialog(){
+        val permissionNeededDialogFragment = PermissionNeededDialogFragment()
+        permissionNeededDialogFragment.show(supportFragmentManager,"permissiondialog")
+    }
+
+
 
 
 

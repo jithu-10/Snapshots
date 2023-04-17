@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -44,6 +45,7 @@ class SearchFragment : Fragment(),SearchHistoryRecyclerAdapter.EventListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         if(fragmentView == null){
             val view = inflater.inflate(R.layout.fragment_search, container, false)
             fragmentView = view

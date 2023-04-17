@@ -1,4 +1,4 @@
-package com.example.instagramv1.ui.commentscreen
+package com.example.instagramv1.ui.authscreen.commentscreen
 
 import android.app.Activity
 import android.content.Context
@@ -77,6 +77,11 @@ class CommentActivity : AppCompatActivity() {
                 viewModel.postOwnerUserName = it.post_owner_user_name
                 viewModel.postOwnerUserId = it.post_owner_id
                 viewModel.postOwnerProfilePicture = it.post_owner_profile_picture
+                viewModel.postLocation = it.post_location
+                viewModel.postCreatedTime = it.post_created_time
+                viewModel.postReactionCount = it.post_reaction_count
+                viewModel.postCommentsCount = it.post_comments_count
+                viewModel.userReacted = it.user_reacted
 
                 if(it.post_description==null || it.post_description.isBlank()){
                     commentBinding.postDescription.visibility = View.GONE

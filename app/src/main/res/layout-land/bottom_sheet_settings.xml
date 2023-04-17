@@ -136,7 +136,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Default"
+                android:text="System default"
                 android:theme="@style/RadioButtonStyle"
                 android:id="@+id/defaultBtn"
                 android:padding="5dp"/>

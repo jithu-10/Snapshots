@@ -10,7 +10,8 @@
     </data>
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/PostViewStyle">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -24,7 +25,7 @@
                 android:id="@+id/profile_page_toolbar"
                 style="@style/ToolBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +235,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Add Location"
+                    android:hint="Location"
                     android:maxLength="20"
                     android:text="@={addPostViewModel.location}"
                     android:inputType="textPersonName"

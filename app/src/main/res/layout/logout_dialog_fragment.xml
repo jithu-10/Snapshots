@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Cancel"
         style="@style/TextViews"
-        android:id="@+id/cancelBtn" />
+        android:id="@+id/allowAccessBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

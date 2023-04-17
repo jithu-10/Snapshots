@@ -47,7 +47,7 @@ class RemoveFollowerDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        view.findViewById<View>(R.id.cancelBtn).setOnClickListener {
+        view.findViewById<View>(R.id.allowAccessBtn).setOnClickListener {
             dismiss()
         }
 

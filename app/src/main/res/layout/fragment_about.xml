@@ -10,7 +10,7 @@
         android:id="@+id/profile_page_toolbar"
         style="@style/ToolBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

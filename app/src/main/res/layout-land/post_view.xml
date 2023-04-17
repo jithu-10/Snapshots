@@ -12,7 +12,8 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/postViewLayout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/post_owner_details"
@@ -67,15 +68,37 @@
             app:layout_constraintStart_toEndOf="@id/cardViewPostOwnerImage"
             app:layout_constraintTop_toBottomOf="@+id/tv_post_owner_user_name" />
 
-        <ImageView
-            android:id="@+id/moreOptionsBtn"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/ic_baseline_more_vert_24"
-            app:layout_constraintTop_toTopOf="parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            app:cardElevation="0dp"
+            style="@style/CardBackground"
             android:visibility="gone"
+            android:id="@+id/moreOptionsBtn"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                android:layout_gravity="center|right"
+                android:visibility="visible"
+                />
+
+        </androidx.cardview.widget.CardView>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/moreOptionsBtn"-->
+<!--            android:layout_width="22dp"-->
+<!--            android:layout_height="22dp"-->
+<!--            android:src="@drawable/ic_baseline_more_vert_24"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"/>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -113,65 +136,187 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/PostViewStyle">
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/imgViewLikeBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_baseline_favorite_border_24"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgViewCommentBtn"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/likeBtnCardView"
+            card_view:cardElevation="0dp"
+            app:cardElevation="0dp"
+            style="@style/CardBackground"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/commentBtnCardView"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/likes_count"
-            android:text="@{String.valueOf(model.post_reaction_count) }"
-            app:layout_constraintEnd_toEndOf="@+id/imgViewLikeBtn"
-            app:layout_constraintStart_toStartOf="@+id/imgViewLikeBtn"
-            app:layout_constraintTop_toBottomOf="@id/imgViewLikeBtn" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/imgViewCommentBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_outline_comment_24"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imgViewSaveBtn"
+                <ImageView
+                    android:id="@+id/imgViewLikeBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/favorite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/likes_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(model.post_reaction_count)}"
+                    app:layout_constraintEnd_toEndOf="@+id/imgViewLikeBtn"
+                    app:layout_constraintStart_toStartOf="@+id/imgViewLikeBtn"
+                    app:layout_constraintTop_toBottomOf="@id/imgViewLikeBtn" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            card_view:cardElevation="0dp"
+            app:cardElevation="0dp"
+            style="@style/CardBackground"
+            android:id="@+id/commentBtnCardView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/saveBtnCardView"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgViewLikeBtn"
-            />
+            app:layout_constraintStart_toEndOf="@+id/likeBtnCardView"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(model.post_comments_count) }"
-            app:layout_constraintEnd_toEndOf="@+id/imgViewCommentBtn"
-            app:layout_constraintStart_toStartOf="@+id/imgViewCommentBtn"
-            app:layout_constraintTop_toBottomOf="@id/imgViewCommentBtn" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-        <ImageView
-            android:layout_marginTop="10dp"
-            android:id="@+id/imgViewSaveBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_outline_bookmark_border_24"
-            app:layout_constraintTop_toTopOf="parent"
+                <ImageView
+                    android:rotation="270"
+                    android:id="@+id/imgViewCommentBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/commentmaterial"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(model.post_comments_count) }"
+                    app:layout_constraintEnd_toEndOf="@+id/imgViewCommentBtn"
+                    app:layout_constraintStart_toStartOf="@+id/imgViewCommentBtn"
+                    app:layout_constraintTop_toBottomOf="@id/imgViewCommentBtn" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            card_view:cardElevation="0dp"
+            app:cardElevation="0dp"
+            style="@style/CardBackground"
+            android:id="@+id/saveBtnCardView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgViewCommentBtn" />
+            app:layout_constraintStart_toEndOf="@+id/commentBtnCardView"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/saveTextView"
-            app:layout_constraintEnd_toEndOf="@+id/imgViewSaveBtn"
-            app:layout_constraintStart_toStartOf="@+id/imgViewSaveBtn"
-            app:layout_constraintTop_toBottomOf="@id/imgViewSaveBtn" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgViewSaveBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/bookmark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/saveTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    app:layout_constraintEnd_toEndOf="@+id/imgViewSaveBtn"
+                    app:layout_constraintStart_toStartOf="@+id/imgViewSaveBtn"
+                    app:layout_constraintTop_toBottomOf="@id/imgViewSaveBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+<!--        <ImageView-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/imgViewLikeBtn"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:src="@drawable/ic_baseline_favorite_border_24"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/imgViewCommentBtn"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/likes_count"-->
+<!--            android:text="@{String.valueOf(model.post_reaction_count) }"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imgViewLikeBtn"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgViewLikeBtn"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/imgViewLikeBtn" />-->
+
+<!--        <ImageView-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/imgViewCommentBtn"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:src="@drawable/ic_outline_comment_24"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/imgViewSaveBtn"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgViewLikeBtn"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@{String.valueOf(model.post_comments_count) }"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imgViewCommentBtn"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgViewCommentBtn"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/imgViewCommentBtn" />-->
+
+<!--        <ImageView-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/imgViewSaveBtn"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:src="@drawable/ic_outline_bookmark_border_24"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgViewCommentBtn" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Save"-->
+<!--            android:id="@+id/saveTextView"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imgViewSaveBtn"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgViewSaveBtn"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/imgViewSaveBtn" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -255,11 +400,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View Comments"
-            android:paddingBottom="10dp"
+            android:layout_marginTop="2dp"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/desc_layout" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/post_description_section"
+        android:layout_marginStart="10dp"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp"
+        android:id="@+id/createdTime"
+        />
 
 
 

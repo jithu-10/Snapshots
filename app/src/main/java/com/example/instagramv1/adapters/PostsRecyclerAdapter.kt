@@ -7,28 +7,26 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.*
-import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.instagramv1.R
 import com.example.instagramv1.databinding.PostViewBinding
 import com.example.instagramv1.model.FilterOptions
 import com.example.instagramv1.model.PostViewData
-import com.example.instagramv1.ui.commentscreen.CommentActivity
+import com.example.instagramv1.ui.authscreen.commentscreen.CommentActivity
+import com.example.instagramv1.ui.authscreen.commentscreen.CommentFragment
 import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.othersprofilescreen.OthersProfileFragment
 import com.example.instagramv1.ui.mainscreen.profilescreen.MoreOptionsBottomSheetFragment
 import com.example.instagramv1.ui.mainscreen.profilescreen.ProfileFragment
-import com.example.instagramv1.ui.mainscreen.profilescreen.SavedPostsFragment
+import com.example.instagramv1.utils.DateUtils
 import com.example.instagramv1.utils.DoubleClickListener
+import com.example.instagramv1.utils.SortUtils
 import dagger.hilt.android.internal.managers.FragmentComponentManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -51,23 +49,23 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
     fun setPosts(list : List<PostViewData>,endView: Boolean,filterOptions: FilterOptions){
 
         if(filterOptions == FilterOptions.SORT_BY_DATE_DESC){
-            val posts = sortByDateDescending(list)
+            val posts = SortUtils.sortByDateDescending(list)
             setPosts(posts,endView)
 
         }
 
         else if(filterOptions == FilterOptions.SORT_BY_DATE_ASC){
-            val posts = sortByDateAscending(list)
+            val posts = SortUtils.sortByDateAscending(list)
             setPosts(posts,endView)
         }
 
         else if(filterOptions == FilterOptions.MOST_LIKED){
-            val posts = sortByLikes(list)
+            val posts = SortUtils.sortByLikes(list)
             setPosts(posts,endView)
         }
 
         else if(filterOptions == FilterOptions.MOST_COMMENTED){
-            val posts = sortByMostComments(list)
+            val posts = SortUtils.sortByMostComments(list)
             setPosts(posts,endView)
         }
     }
@@ -79,54 +77,54 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
         }
         Log.d("Adapter Check","Not Null : "+list.toString())
         if(filterOptions == FilterOptions.SORT_BY_DATE_DESC){
-            val posts = sortByDateDescending(list)
+            val posts = SortUtils.sortByDateDescending(list)
             setPosts(posts,endView)
 
         }
 
         else if(filterOptions == FilterOptions.SORT_BY_DATE_ASC){
-            val posts = sortByDateAscending(list)
+            val posts = SortUtils.sortByDateAscending(list)
             setPosts(posts,endView)
         }
 
         else if(filterOptions == FilterOptions.MOST_LIKED){
-            val posts = sortByLikes(list)
+            val posts = SortUtils.sortByLikes(list)
             setPosts(posts,endView)
         }
 
         else if(filterOptions == FilterOptions.MOST_COMMENTED){
-            val posts = sortByMostComments(list)
+            val posts = SortUtils.sortByMostComments(list)
             setPosts(posts,endView)
         }
     }
 
-    private fun sortByMostComments(list : List<PostViewData>) : List<PostViewData>{
-        val newList = list.sortedByDescending {
-            it.post_comments_count
-        }
-        return newList
-    }
-
-    private fun sortByLikes(list : List<PostViewData>) : List<PostViewData>{
-        val newList = list.sortedByDescending {
-            it.post_reaction_count
-        }
-        return newList
-    }
-
-    private fun sortByDateAscending(list : List<PostViewData>) : List<PostViewData>{
-        val newList = list.sortedBy {
-            it.post_id
-        }
-        return newList
-    }
-
-    private fun sortByDateDescending(list : List<PostViewData>) : List<PostViewData>{
-        val newList = list.sortedByDescending {
-            it.post_id
-        }
-        return newList
-    }
+//    private fun sortByMostComments(list : List<PostViewData>) : List<PostViewData>{
+//        val newList = list.sortedByDescending {
+//            it.post_comments_count
+//        }
+//        return newList
+//    }
+//
+//    private fun sortByLikes(list : List<PostViewData>) : List<PostViewData>{
+//        val newList = list.sortedByDescending {
+//            it.post_reaction_count
+//        }
+//        return newList
+//    }
+//
+//    private fun sortByDateAscending(list : List<PostViewData>) : List<PostViewData>{
+//        val newList = list.sortedBy {
+//            it.post_created_time
+//        }
+//        return newList
+//    }
+//
+//    private fun sortByDateDescending(list : List<PostViewData>) : List<PostViewData>{
+//        val newList = list.sortedByDescending {
+//            it.post_created_time
+//        }
+//        return newList
+//    }
 
 
 
@@ -139,8 +137,12 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val post = posts[position]
-
         (holder as PostsViewHolder).bind(post)
+        if(position == posts.size-1){
+            val scale: Float = holder.itemView.context.resources.displayMetrics.density
+            val bottomDpAsPixels = (10 * scale + 0.5f)
+            holder.itemView.findViewById<ConstraintLayout>(R.id.postViewLayout).setPadding(0,0,0,bottomDpAsPixels.toInt())
+        }
 
     }
 
@@ -161,9 +163,9 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
 
     inner class PostsViewHolder(private val postViewBinding: PostViewBinding) : RecyclerView.ViewHolder(postViewBinding.root) {
 
-        private val likeBtn = postViewBinding.imgViewLikeBtn
-        private val saveBtn = postViewBinding.imgViewSaveBtn
-        private val commentBtn = postViewBinding.imgViewCommentBtn
+        private val likeBtn = postViewBinding.likeBtnCardView
+        private val saveBtn = postViewBinding.saveBtnCardView
+        private val commentBtn = postViewBinding.commentBtnCardView
         private val viewAllCommentsBtn = postViewBinding.tvViewComments
 
 
@@ -188,14 +190,18 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
             moreOptionsBottomSheetFragment.show((FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager,"bottomsheet")
         }
 
+
+
         fun bind(post : PostViewData){
-            val nightModeFlags: Int = postViewBinding.root.getResources().getConfiguration().uiMode and
+            val nightModeFlags: Int = postViewBinding.root.resources.configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK
             when (nightModeFlags) {
                 Configuration.UI_MODE_NIGHT_YES -> readMoreColor = "D3D3D3"
                 Configuration.UI_MODE_NIGHT_NO -> readMoreColor = "808080"
             }
+
             postViewBinding.model = post
+            postViewBinding.createdTime.text = DateUtils.setCreatedTime(post.post_created_time)
 
             if(post.post_owner_id == postViewModel.userId){
                 postViewBinding.moreOptionsBtn.visibility = View.VISIBLE
@@ -230,25 +236,14 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
 
 
 
-//            postViewBinding.postDescriptionRmTv?.setOnClickListener {
-//                postViewBinding.postDescriptionRmTv.visibility = View.GONE
-//                postViewBinding.postDescriptionTv?.visibility = View.VISIBLE
-//
-//            }
-//
-//            postViewBinding.postDescriptionTv?.setOnClickListener {
-//                if(isReadMoreAvail){
-//                    postViewBinding.postDescriptionRmTv?.visibility = View.VISIBLE
-//                    postViewBinding.postDescriptionTv.visibility = View.GONE
-//                }
-//            }
-
             if(post.post_description == null){
                 //postViewBinding.postDescriptionSection.visibility = View.GONE
                 postViewBinding.descLayout.visibility = View.GONE
                 postViewBinding.tvViewComments.visibility = View.GONE
             }
             else{
+                postViewBinding.descLayout.visibility = View.VISIBLE
+                postViewBinding.tvViewComments.visibility = View.VISIBLE
                 val desc = post.post_description
                 postViewBinding.postDescriptionTv.text = desc
                 var stringNew = ""
@@ -313,19 +308,24 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
                 }
             }
 
+            Log.d("Location Check","Location = ${post.post_location}")
+
             if(post.post_location == null){
                 postViewBinding.tvLocation.visibility = View.GONE
+            }
+            else{
+                postViewBinding.tvLocation.visibility = View.VISIBLE
             }
             if(post.user_reacted){
                 postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_favorite_24,null))
             }
             else{
-                postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_favorite_border_24,null))
+                postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.favorite,null))
             }
             likeBtn.setOnClickListener {
                 if(post.user_reacted){
                     post.user_reacted = false
-                    postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_favorite_border_24,null))
+                    postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.favorite,null))
                     post.post_reaction_count--
                     postViewBinding.likesCount.text = post.post_reaction_count.toString()
                     postViewModel.removeReactions.add(post.post_id)
@@ -341,7 +341,7 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
                 }
 
 //                if(post.user_reacted){
-//                   // postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_favorite_border_24,null))
+//                   // postViewBinding.imgViewLikeBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.favorite,null))
 //                    //postViewModel.removeReaction(post.post_id)
 //                    postViewModel.removeReactions.add(post.post_id)
 //                    postViewModel.addReactions.remove(post.post_id)
@@ -388,6 +388,10 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
                 }
             })
 
+            postViewBinding.postOwnerDetails.setOnClickListener {
+                openProfile(post.post_owner_id)
+            }
+
             postViewBinding.tvPostOwnerUserName.setOnClickListener {
                 openProfile(post.post_owner_id)
             }
@@ -410,6 +414,32 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
                 it.context.startActivity(intent)
             }
 
+//            commentBtn.setOnClickListener {
+//                (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
+//                    replace(R.id.frame_page,CommentFragment().apply {
+//                        arguments = Bundle().apply {
+//                            putInt("POST_ID",post.post_id)
+//                        }
+//                    },"COMMENT_FRAGMENT")
+//                    addToBackStack("COMMENT_FRAGMENT")
+//                    commit()
+//                }
+//            }
+//
+//            viewAllCommentsBtn.setOnClickListener {
+//                (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
+//                    replace(R.id.frame_page,CommentFragment().apply {
+//                        arguments = Bundle().apply {
+//                            putInt("POST_ID",post.post_id)
+//                        }
+//                    },"COMMENT_FRAGMENT")
+//                    addToBackStack("COMMENT_FRAGMENT")
+//                    commit()
+//                }
+//            }
+
+
+
             postViewBinding.executePendingBindings()
 
 
@@ -424,11 +454,11 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
                 postViewModel.getSavedStatus(post.post_id).observe((FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity)){
                     userSavedState = it
                     if(it){
-                        postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_bookmark_24,null))
+                        postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.bookmarkfilled,null))
                         postViewBinding.saveTextView.text = "Saved"
                     }
                     else{
-                        postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_outline_bookmark_border_24,null))
+                        postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.bookmark,null))
                         postViewBinding.saveTextView.text = "Save"
                     }
                 }
@@ -437,13 +467,13 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
             saveBtn.setOnClickListener {
                 if(userSavedState){
                     userSavedState = false
-                    postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_outline_bookmark_border_24,null))
+                    postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.bookmark,null))
                     postViewBinding.saveTextView.text = "Save"
                     postViewModel.unSavePost(post.post_id)
                 }
                 else{
                     userSavedState = true
-                    postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.ic_baseline_bookmark_24,null))
+                    postViewBinding.imgViewSaveBtn.setImageDrawable(ResourcesCompat.getDrawable(postViewBinding.imgViewLikeBtn.resources,R.drawable.bookmarkfilled,null))
                     postViewBinding.saveTextView.text = "Saved"
                     postViewModel.savePost(post.post_id)
                 }
@@ -531,6 +561,7 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
 
 
         }
+
 
 
         private fun isFragmentInBackstack(fragmentManager: FragmentManager, fragmentTagName: String): Boolean {

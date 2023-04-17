@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.instagramv1.R
 import com.example.instagramv1.databinding.CommentViewBinding
 import com.example.instagramv1.model.CommentViewData
-import com.example.instagramv1.ui.commentscreen.CommentActivity
-import com.example.instagramv1.ui.commentscreen.CommentViewModel
+import com.example.instagramv1.ui.authscreen.commentscreen.CommentActivity
+import com.example.instagramv1.ui.authscreen.commentscreen.CommentViewModel
 
 class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : RecyclerView.Adapter<CommentsRecyclerAdapter.CommentsViewHolder>() {
+
+    var eventListener : CommentsRecyclerAdapter.onEventListener? = null
 
     var commentsList : MutableList<CommentViewData> = mutableListOf()
     var deleteCommentView : MutableList<View> = mutableListOf()
@@ -46,11 +48,7 @@ class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : Recycler
         notifyDataSetChanged()
     }
 
-//    private val closeOnClickListener = OnClickListener {
-//        for(view in deleteCommentView){
-//            view.setBackgroundColor(Color.parseColor(normalColor))
-//        }
-//    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
         val commentViewBinding : CommentViewBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
@@ -80,11 +78,29 @@ class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : Recycler
         var commentViewData : CommentViewData? = null
         var selected = false
 
+        private val commentOnClickListener2 = OnClickListener{
+            if(!selected){
+                selected = true
+                commentViewBinding.commentView.setBackgroundColor(Color.parseColor(itemViewColor))
+                deleteCommentView.add(commentViewBinding.commentView)
+                commentViewModel.selectedComments.add(commentViewData!!.comment_id)
+                eventListener?.onCommentSelected()
+            }
+            else{
+                selected = false
+
+                commentViewBinding.commentView.setBackgroundColor(Color.parseColor(normalColor))
+                deleteCommentView.remove(commentViewBinding.commentView)
+                commentViewModel.selectedComments.remove(commentViewData!!.comment_id)
+                eventListener?.onCommentDeselected()
+            }
+
+        }
+
         private val commentOnClickListener = OnClickListener{
             if(!selected){
                 selected = true
                 commentViewBinding.commentView.setBackgroundColor(Color.parseColor(itemViewColor))
-
                 (commentViewBinding.root.context as CommentActivity).findViewById<ConstraintLayout>(R.id.delete_comment_bar).visibility = View.VISIBLE
                 (commentViewBinding.root.context as CommentActivity).findViewById<ConstraintLayout>(R.id.edit_comment_section).visibility = View.GONE
                 (commentViewBinding.root.context as CommentActivity).findViewById<ImageView>(R.id.imgViewBackBtn).visibility = View.GONE
@@ -179,5 +195,10 @@ class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : Recycler
         }
 
 
+    }
+
+    interface onEventListener{
+        fun onCommentSelected()
+        fun onCommentDeselected()
     }
 }

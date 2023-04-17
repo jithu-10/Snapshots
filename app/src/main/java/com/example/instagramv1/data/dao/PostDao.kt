@@ -1,5 +1,6 @@
 package com.example.instagramv1.data.dao
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
@@ -37,7 +38,7 @@ interface PostDao {
     fun getAllPosts() : List<Post>
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "  COUNT(DISTINCT reaction.user_id) AS post_reaction_count, \n" +
             "  COUNT(DISTINCT comment.comment_id) AS post_comments_count, \n" +
             "  CASE WHEN EXISTS (\n" +
@@ -56,7 +57,7 @@ interface PostDao {
 
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -66,14 +67,14 @@ interface PostDao {
             "LEFT JOIN reaction ON post.post_id = reaction.post_id \n" +
             "LEFT JOIN comment ON post.post_id = comment.post_id \n" +
             "INNER JOIN user ON post.user_id = user.user_id\n" +
-            "WHERE user.private_account = 0 AND user.user_id <> :userId GROUP BY Post.post_id ORDER BY Post.post_id DESC")
+            "WHERE user.private_account = 0 AND user.user_id <> :userId GROUP BY Post.post_id ORDER BY Post.created_time DESC")
     fun getAllPublicPosts(userId: Int) : LiveData<List<PostViewData>>
 
 
 
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -89,7 +90,7 @@ interface PostDao {
     fun getUserSavedPosts(userId: Int) : LiveData<List<PostViewData>>
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -103,7 +104,7 @@ interface PostDao {
     fun getAllPublicPostsAscending(userId: Int) : LiveData<List<PostViewData>>
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time,\n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -117,7 +118,7 @@ interface PostDao {
     fun getAllPostsMostCommented(userId: Int) : LiveData<List<PostViewData>>
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -134,7 +135,7 @@ interface PostDao {
 
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "       COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "       CASE WHEN EXISTS (\n" +
             "           SELECT 1 FROM reaction \n" +
@@ -150,7 +151,7 @@ interface PostDao {
 
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "       post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time, \n" +
             "  COUNT(DISTINCT reaction.user_id) AS post_reaction_count, \n" +
             "  COUNT(DISTINCT comment.comment_id) AS post_comments_count, \n" +
             "  CASE WHEN EXISTS (\n" +
@@ -164,7 +165,7 @@ interface PostDao {
             "WHERE \n" +
             "  post.user_id = :userId\n" +
             "GROUP BY \n" +
-            "  post.post_id ORDER BY Post.post_id DESC")
+            "  post.post_id ORDER BY Post.created_time DESC")
     fun getUserPosts(userId : Int) : LiveData<List<PostViewData>>
 
 
@@ -177,7 +178,7 @@ interface PostDao {
             "    Post.post_id, \n" +
             "    Post.image AS post_image, \n" +
             "    Post.description AS post_description, \n" +
-            "    Post.location AS post_location, \n" +
+            "    Post.location AS post_location, post.created_time as post_created_time, \n" +
             "    COUNT(DISTINCT Reaction.id) AS post_reaction_count, \n" +
             "    COUNT(DISTINCT Comment.comment_id) AS post_comments_count, \n" +
             "    CASE WHEN EXISTS (\n" +
@@ -194,14 +195,12 @@ interface PostDao {
             "WHERE \n" +
             "    (User.user_id = :otherUserId AND User.private_account = 0) OR Connection.following_user_id = :userId AND Connection.followed_user_id = :otherUserId\n" +
             "GROUP BY \n" +
-            "    Post.post_id, \n" +
-            "    User.user_id, \n" +
-            "    Reaction.user_id ORDER BY Post.post_id DESC\n")
+            "    Post.post_id ORDER BY Post.created_time DESC\n")
     fun getOtherUserPosts(userId: Int,otherUserId : Int) : LiveData<List<PostViewData>>
 
 
     @Query("SELECT user.user_id AS post_owner_id, user.user_name AS post_owner_user_name, user.profile_picture AS post_owner_profile_picture, \n" +
-            "                   post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, \n" +
+            "                   post.post_id, post.image AS post_image, post.description AS post_description, post.location AS post_location, post.created_time as post_created_time,\n" +
             "                   COUNT(DISTINCT reaction.user_id) AS post_reaction_count, COUNT(DISTINCT comment.comment_id) AS post_comments_count,\n" +
             "                   CASE WHEN EXISTS (\n" +
             "                       SELECT 1 FROM reaction \n" +
@@ -214,9 +213,17 @@ interface PostDao {
             "            WHERE user.user_id = :userId OR user.user_id IN (\n" +
             "              SELECT followed_user_id FROM Connection WHERE following_user_id = :userId\n" +
             "            ) \n" +
-            "            GROUP BY Post.post_id ORDER BY Post.post_id DESC\n")
+            "            GROUP BY Post.post_id ORDER BY Post.created_time DESC\n")
     fun getFollowingPosts(userId: Int) : LiveData<List<PostViewData>>
 
+    @Query("UPDATE post SET location = :location WHERE post_id = :postId")
+    suspend fun changePostLocation(location: String?, postId: Int)
+
+    @Query("UPDATE post SET description = :description WHERE post_id = :postId")
+    suspend fun changePostDescription(description: String?, postId: Int)
+
+    @Query("SELECT image FROM post WHERE post_id = :postId")
+    suspend fun getPostImage(postId: Int) : Bitmap
 
 
     //"GROUP BY Post.post_id;

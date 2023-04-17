@@ -81,6 +81,12 @@ class FollowRequestsRecyclerAdapter(
                 viewModel.deleteFollowRequest(requestedUser.user_id)
             }
 
+
+            followRequestViewBinding.followRequestsLayout.setOnClickListener {
+                openProfile(requestedUser.user_id)
+            }
+
+
             followRequestViewBinding.requestedUserImageCardView.setOnClickListener {
                 openProfile(requestedUser.user_id)
             }

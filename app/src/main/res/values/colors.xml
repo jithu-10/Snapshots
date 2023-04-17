@@ -12,4 +12,6 @@
     <color name="facebookBlue">#0064e0</color>
     <color name="statusbarcolor">#FFFFFFFF</color>
     <color name="read_more">#869ab7</color>
+    <color name="notification">#FA3E3E</color>
+
 </resources>

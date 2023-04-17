@@ -48,7 +48,7 @@ class LogoutDialogFragment : DialogFragment(){
             }
         }
 
-        view.findViewById<View>(R.id.cancelBtn).setOnClickListener {
+        view.findViewById<View>(R.id.allowAccessBtn).setOnClickListener {
             dismiss()
         }
     }

@@ -17,7 +17,7 @@
             android:id="@+id/profile_page_toolbar"
             style="@style/ToolBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,203 +62,175 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:id="@+id/scrollView"
-
-            app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"
-            app:layout_constraintBottom_toBottomOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_page_toolbar"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="0dp">
 
             <FrameLayout
-            android:id="@+id/crop_frame"
-            android:clickable="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <!-- dark #363636  light #efefef -->
-            <com.example.instagramv1.cropimage.CropperView
-                android:id="@+id/imageview"
-                style="@style/CropperViewStyle"
+                android:id="@+id/crop_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cropper__grid_opacity="0.8"
-                app:cropper__grid_thickness="0.8dp" />
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/snap_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="left|bottom"
-                android:layout_margin="16dp"
-                android:background="@drawable/black_transp_circ_ripple"
-                android:padding="8dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_baseline_filter_center_focus_24" />
+                <!-- dark #363636  light #efefef -->
+                <com.example.instagramv1.cropimage.CropperView
+                    android:id="@+id/imageview"
+                    style="@style/CropperViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cropper__grid_opacity="0.8"
+                    app:cropper__grid_thickness="0.8dp" />
 
-            <ImageView
-                android:id="@+id/rotate_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="right|bottom"
-                android:layout_margin="16dp"
-                android:background="@drawable/black_transp_circ_ripple"
-                android:padding="8dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_baseline_rotate_right_24" />
+                <ImageView
+                    android:id="@+id/snap_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left|bottom"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/black_transp_circ_ripple"
+                    android:padding="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_filter_center_focus_24" />
+
+                <ImageView
+                    android:id="@+id/rotate_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|bottom"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/black_transp_circ_ripple"
+                    android:padding="8dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_baseline_rotate_right_24" />
 
             </FrameLayout>
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!--    <Button-->
+            <!--        android:id="@+id/btnContinue"-->
+            <!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="50dp"-->
+            <!--        android:layout_marginTop="10dp"-->
+            <!--        android:backgroundTint="@color/facebookBlue"-->
+            <!--        android:gravity="start|center"-->
+            <!--        android:text="Continue"-->
+            <!--        android:textColor="@color/white"-->
+            <!--        app:icon="@drawable/ic_baseline_arrow_forward_24"-->
+            <!--        app:iconTint="#FFFFFF"-->
+            <!--        app:iconGravity="end"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintHorizontal_bias="0.5"-->
+            <!--        app:layout_constraintStart_toEndOf="@+id/btnAddPhoto"-->
+            <!--        app:layout_constraintTop_toBottomOf="@id/crop_frame" />-->
+
+            <!--    <Button-->
+            <!--        android:id="@+id/btnAddPhoto"-->
+            <!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="50dp"-->
+            <!--        android:layout_marginTop="10dp"-->
+            <!--        android:backgroundTint="@color/facebookBlue"-->
+            <!--        android:gravity="start|center"-->
+            <!--        android:text="Add Photo"-->
+            <!--        android:textColor="@color/white"-->
+            <!--        app:icon="@drawable/ic_baseline_new_add_24"-->
+            <!--        app:iconGravity="start"-->
+            <!--        app:iconTint="#FFFFFF"-->
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintEnd_toStartOf="@+id/btnContinue"-->
+            <!--        app:layout_constraintHorizontal_bias="0.5"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintTop_toBottomOf="@id/crop_frame" />-->
+
+            <TextView
+                android:id="@+id/galleryTv"
+                style="@style/TextViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:text="Gallery"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/crop_frame" />
+
+            <ImageView
+                android:id="@+id/openCamera"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/black_transp_circ_ripple"
+                android:scaleType="center"
+                android:src="@drawable/new_open_camera_24"
+                app:layout_constraintBottom_toBottomOf="@id/galleryTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/galleryTv" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintTop_toBottomOf="@id/galleryTv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/galleryRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <LinearLayout
+                android:id="@+id/changePictureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_input_layout"
-                app:layout_constraintEnd_toEndOf="parent"
+
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/crop_frame">
 
-                <LinearLayout
-                    android:id="@+id/changePictureLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
+                <ImageView
+                    android:id="@+id/btnAddPhoto"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_outline_new_change_pic_24"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@id/crop_frame"
+                    tools:layout_editor_absoluteY="412dp" />
 
-                    <ImageView
-                        android:id="@+id/btnAddPhoto"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_outline_change_circle_24"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/crop_frame"
-                        tools:layout_editor_absoluteY="412dp" />
-
-                    <Button
-                        android:id="@+id/btnAddPhotoTv"
-                        style="@style/TextViews"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:padding="0dp"
-
-                        android:text="Change Picture"
-                        android:textAllCaps="false"
-                        android:textColor="@color/facebookBlue"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        app:layout_constraintTop_toTopOf="@+id/imageView3" />
-                </LinearLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etUsernameOrEmail"
-                    style="@style/MaterialTextInputLayout"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btnAddPhotoTv"
+                    style="@style/TextViews"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                    app:layout_constraintTop_toBottomOf="@id/changePictureLayout">
+                    android:background="@android:color/transparent"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="0dp"
+                    android:text="Change Picture"
+                    android:textAllCaps="false"
+                    android:textColor="@color/facebookBlue"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
+            </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Add Location"
-                        android:id="@+id/locationTv"
-                        android:inputType="textPersonName"
-                        android:maxLength="20"
-                        android:text="@={addPostViewModel.location}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etDescription"
-                    style="@style/MaterialTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-                    app:layout_constraintTop_toBottomOf="@id/etUsernameOrEmail">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tiDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Description"
-                        android:imeOptions="flagNoExtractUi"
-                        android:maxLines="4"
-                        android:inputType="textMultiLine"
-                        android:maxLength="1000"
-                        android:text="@={addPostViewModel.description}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
-
-        <!--    <Button-->
-        <!--        android:id="@+id/btnContinue"-->
-        <!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="50dp"-->
-        <!--        android:layout_marginTop="10dp"-->
-        <!--        android:backgroundTint="@color/facebookBlue"-->
-        <!--        android:gravity="start|center"-->
-        <!--        android:text="Continue"-->
-        <!--        android:textColor="@color/white"-->
-        <!--        app:icon="@drawable/ic_baseline_arrow_forward_24"-->
-        <!--        app:iconTint="#FFFFFF"-->
-        <!--        app:iconGravity="end"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintHorizontal_bias="0.5"-->
-        <!--        app:layout_constraintStart_toEndOf="@+id/btnAddPhoto"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/crop_frame" />-->
-
-        <!--    <Button-->
-        <!--        android:id="@+id/btnAddPhoto"-->
-        <!--        style="@style/Widget.MaterialComponents.Button.Icon"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="50dp"-->
-        <!--        android:layout_marginTop="10dp"-->
-        <!--        android:backgroundTint="@color/facebookBlue"-->
-        <!--        android:gravity="start|center"-->
-        <!--        android:text="Add Photo"-->
-        <!--        android:textColor="@color/white"-->
-        <!--        app:icon="@drawable/ic_baseline_new_add_24"-->
-        <!--        app:iconGravity="start"-->
-        <!--        app:iconTint="#FFFFFF"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintEnd_toStartOf="@+id/btnContinue"-->
-        <!--        app:layout_constraintHorizontal_bias="0.5"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/crop_frame" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,7 +65,7 @@ object Validators {
 
 
     private fun fullNameValidator(fullName: String): Boolean {
-        return regexValidator("^[\\p{L}.'-][\\p{L} .'-]{1,23}[\\p{L}.']\$", fullName)
+        return regexValidator("^[\\p{L}'-][\\p{L} '-]{1,23}[\\p{L}']\$", fullName)
 
     }
     private fun userNameValidator(userName: String): Boolean {
@@ -82,7 +82,7 @@ object Validators {
     }
 
     private fun passwordValidator(password: String): Boolean{
-        return regexValidator("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",password)
+        return regexValidator("^(?=.*[A-Za-z])(?=.* ̰ ̰\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",password)
     }
 
     private fun regexValidator(regex : String, value : String): Boolean{

@@ -7,13 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.example.instagramv1.R
-import com.example.instagramv1.ui.addpostscreen.GetPhotoDialogFragment
 import com.example.instagramv1.ui.mainscreen.PostViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,13 +48,12 @@ class DeletePostDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        view.findViewById<View>(R.id.cancelBtn).setOnClickListener {
+        view.findViewById<View>(R.id.allowAccessBtn).setOnClickListener {
             dismiss()
         }
     }
 
     private fun deletePost(postId : Int){
-        Toast.makeText(requireActivity(),"Post Deleted", Toast.LENGTH_SHORT).show()
         viewModel.deletePost(postId)
         dismiss()
     }

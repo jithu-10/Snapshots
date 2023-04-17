@@ -56,6 +56,8 @@ interface UserRepository {
 
     suspend fun getNotifications(userId: Int) : LiveData<List<NotificationData>>
 
+    suspend fun getNotificationUpdates(userId: Int) : LiveData<List<NotificationViewData>>
+
     suspend fun removeProfilePicture(userId: Int)
 
     suspend fun getUserSearchHistory(userId: Int) : LiveData<List<String>>
@@ -65,5 +67,11 @@ interface UserRepository {
     suspend fun deleteSearchHistory(userId: Int,historyText : String)
 
     suspend fun deleteAllSearchHistory(userId: Int)
+
+    suspend fun clearNotificationCount(userId: Int)
+
+    suspend fun getNotificationCount(userId: Int) : LiveData<Int>
+
+
 
 }

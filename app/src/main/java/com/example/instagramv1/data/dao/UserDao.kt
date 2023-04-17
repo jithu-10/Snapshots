@@ -9,10 +9,7 @@ import com.example.instagramv1.data.entities.Connection
 import com.example.instagramv1.data.entities.ConnectionRequest
 import com.example.instagramv1.data.entities.SearchHistory
 import com.example.instagramv1.data.entities.User
-import com.example.instagramv1.model.NotificationData
-import com.example.instagramv1.model.UserEditableData
-import com.example.instagramv1.model.UserMiniProfileData
-import com.example.instagramv1.model.UserProfileData
+import com.example.instagramv1.model.*
 
 @Dao
 interface UserDao {
@@ -156,6 +153,13 @@ interface UserDao {
             "JOIN Notification ON User.user_id = Notification.broadcaster_user_id\n" +
             "WHERE Notification.receiver_user_id = :userId ORDER BY Notification.notification_id DESC")
     fun getNotifications(userId: Int) : LiveData<List<NotificationData>>
+
+    @Query("SELECT Notification.notification_id AS notification_id , User.user_name AS broadcaster_user_name, User.profile_picture AS broadcaster_profile_picture, \n" +
+            "       Notification.broadcaster_user_id AS broadcaster_user_id, Notification.notification_type AS notification_type, Notification.content_id AS content_id \n" +
+            "FROM User\n" +
+            "JOIN notificationUpdate Notification  ON User.user_id = Notification.broadcaster_user_id\n" +
+            "WHERE Notification.receiver_user_id = :userId ORDER BY Notification.notification_id DESC")
+    fun getNotificationUpdates(userId: Int) : LiveData<List<NotificationViewData>>
 
     @Insert
     suspend fun addSearchHistory(searchHistory: SearchHistory)

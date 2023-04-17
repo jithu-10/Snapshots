@@ -1,5 +1,6 @@
 package com.example.instagramv1.ui.mainscreen.profilescreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.instagramv1.R
+import com.example.instagramv1.ui.addpostscreen.EditPostActivity
 import com.example.instagramv1.ui.mainscreen.PostViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
     private val viewModel by viewModels<PostViewModel>()
+
+    override fun onStart() {
+        super.onStart()
+        val behavior = BottomSheetBehavior.from(requireView().parent as View)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,20 +37,15 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val postId = arguments?.getInt("POST_ID") ?: return
         view.findViewById<View>(R.id.deleteLayout).setOnClickListener {
-            //deletePost(postId)
             startDeletePostDialogFragment(postId)
         }
+        view.findViewById<View>(R.id.editLayout).setOnClickListener {
+            startEditPostActivity(postId)
+        }
 
-//        view.findViewById<View>(R.id.imgViewDelete).setOnClickListener {
-//            deletePost(postId)
-//        }
+
     }
 
-    private fun deletePost(postId : Int){
-        Toast.makeText(requireActivity(),"Post Deleted",Toast.LENGTH_SHORT).show()
-        viewModel.deletePost(postId)
-        dismiss()
-    }
 
     private fun startDeletePostDialogFragment(postId: Int){
         val deletePostDialogFragment = DeletePostDialogFragment().apply {
@@ -51,6 +55,14 @@ class MoreOptionsBottomSheetFragment : BottomSheetDialogFragment() {
         }
         dismiss()
         deletePostDialogFragment.show(parentFragmentManager,"dialog")
+    }
+
+    private fun startEditPostActivity(postId: Int){
+        val intent = Intent(requireActivity(),EditPostActivity::class.java).apply {
+            putExtra("POST_ID",postId)
+        }
+        dismiss()
+        startActivity(intent)
     }
 
 

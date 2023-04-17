@@ -23,11 +23,10 @@ object BitmapConvertor {
             else{
                 val key = byteArray.contentHashCode().toString()
                 val bitmap = bitmapCache.get(key) ?: BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-                // Add the bitmap to the cache if it was newly created
                 if (bitmap !in bitmapCache.snapshot().values) {
                     bitmapCache.put(key, bitmap)
                 }
-                // Return the bitmap
+
                 bitmap
             }
 

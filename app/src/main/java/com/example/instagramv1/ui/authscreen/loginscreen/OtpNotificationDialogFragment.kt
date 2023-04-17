@@ -3,7 +3,6 @@ package com.example.instagramv1.ui.authscreen.loginscreen
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -54,7 +53,7 @@ class OtpNotificationDialogFragment : DialogFragment(){
 
         }
 
-        view.findViewById<Button>(R.id.cancelBtn).setOnClickListener {
+        view.findViewById<Button>(R.id.allowAccessBtn).setOnClickListener {
             this.dismiss()
         }
     }

@@ -1,13 +1,19 @@
 package com.example.instagramv1.ui.mainscreen.profilescreen.editprofilescreen
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -15,6 +21,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.instagramv1.R
 import com.example.instagramv1.databinding.FragmentEditProfileBinding
 import com.example.instagramv1.ui.addpostscreen.GetPhotoDialogFragment
+import com.example.instagramv1.ui.addpostscreen.PermissionNeededDialogFragment
+import com.example.instagramv1.ui.mainscreen.MainActivity
 import com.example.instagramv1.ui.mainscreen.profilescreen.editprofilescreen.EditProfileViewModel
 import com.example.instagramv1.utils.ValidationErrorMessage
 import com.example.instagramv1.utils.Validators
@@ -52,12 +60,19 @@ class EditProfileFragment : Fragment() {
 
         editProfileBinding.tvChangePicture.setOnClickListener {
             //startCropFragment()
-            startGetPhotoDialogFragment()
+            getPermission()
+            if(checkForPermission()){
+                startGetPhotoDialogFragment()
+            }
+
         }
 
         editProfileBinding.editProfilePicCardView.setOnClickListener {
             //startCropFragment()
-            startGetPhotoDialogFragment()
+            getPermission()
+            if(checkForPermission()){
+                startGetPhotoDialogFragment()
+            }
         }
 
         editProfileBinding.backBtn.setOnClickListener {
@@ -67,6 +82,46 @@ class EditProfileFragment : Fragment() {
         setUpListeners()
 
 
+    }
+
+    private fun getPermission(){
+        if(ContextCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                REQUEST_CODE_READ_PERMISSION
+            );
+        }
+    }
+
+    private fun checkForPermission() : Boolean{
+        return ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+
+
+        if(requestCode == REQUEST_CODE_READ_PERMISSION){
+            if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                startGetPhotoDialogFragment()
+
+                //return
+            }
+            else{
+                openPermissionNeededDialog()
+            }
+        }
+    }
+
+    fun openPermissionNeededDialog(){
+        val permissionNeededDialogFragment = PermissionNeededDialogFragment()
+        permissionNeededDialogFragment.show(parentFragmentManager,"permissiondialog")
     }
 
     private fun startGetPhotoDialogFragment(){
@@ -347,6 +402,11 @@ class EditProfileFragment : Fragment() {
                 editProfileBinding.etPhone.isErrorEnabled = false
             }
         }
+    }
+
+    companion object{
+        const val REQUEST_CODE = 1
+        private const val REQUEST_CODE_READ_PERMISSION = 22
     }
 
 

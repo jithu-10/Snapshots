@@ -1,7 +1,9 @@
 package com.example.instagramv1.ui.mainscreen.homescreen
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,10 +24,13 @@ import com.example.instagramv1.R
 import com.example.instagramv1.adapters.PostsRecyclerAdapter
 import com.example.instagramv1.databinding.FragmentHomeBinding
 import com.example.instagramv1.ui.addpostscreen.AddPostActivity
+import com.example.instagramv1.ui.addpostscreen.PermissionNeededDialogFragment
+import com.example.instagramv1.ui.mainscreen.MainActivity
 import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.UserProfileViewModel
 import com.example.instagramv1.ui.mainscreen.explorescreen.ExplorePostsViewModel
 import com.example.instagramv1.ui.mainscreen.profilescreen.ProfileFragment
+import com.example.instagramv1.ui.mainscreen.profilescreen.editprofilescreen.EditProfileFragment
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -67,10 +74,16 @@ class HomeFragment : Fragment() {
             }
 
             view.findViewById<ImageView>(R.id.cameraLogo).setOnClickListener {
-                val intent = Intent(requireActivity(),AddPostActivity::class.java).apply {
-                    putExtra("OPEN_CAMERA",1)
+
+                getPermission()
+                if(checkForPermission()){
+                    val intent = Intent(requireActivity(),AddPostActivity::class.java).apply {
+                        putExtra("OPEN_CAMERA",1)
+                    }
+                    startActivity(intent)
                 }
-                startActivity(intent)
+
+
             }
 
 
@@ -102,6 +115,8 @@ class HomeFragment : Fragment() {
         return fragmentView
 
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -150,8 +165,48 @@ class HomeFragment : Fragment() {
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
 
+    }
+
+    private fun getPermission(){
+        if(ContextCompat.checkSelfPermission(requireActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                REQUEST_CODE_READ_PERMISSION
+            );
+        }
+    }
+
+    private fun checkForPermission() : Boolean{
+        return ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
 
 
+        if(requestCode == REQUEST_CODE_READ_PERMISSION){
+            if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                val intent = Intent(requireActivity(),AddPostActivity::class.java).apply {
+                    putExtra("OPEN_CAMERA",1)
+                }
+                startActivity(intent)
+                //return
+            }
+            else{
+                openPermissionNeededDialog()
+            }
+        }
+    }
+
+    private fun openPermissionNeededDialog(){
+        val permissionNeededDialogFragment = PermissionNeededDialogFragment()
+        permissionNeededDialogFragment.show(parentFragmentManager,"permissiondialog")
     }
 
     override fun onPause() {
@@ -159,6 +214,10 @@ class HomeFragment : Fragment() {
         postViewModel.addAllReaction()
         postViewModel.removeAllReaction()
 
+    }
+
+    companion object{
+        private const val REQUEST_CODE_READ_PERMISSION = 23
     }
 
 

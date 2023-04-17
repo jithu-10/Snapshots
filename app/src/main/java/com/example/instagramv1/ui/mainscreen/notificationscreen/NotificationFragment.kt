@@ -31,7 +31,7 @@ class NotificationFragment : Fragment() {
     private val notificationViewFragment = NotificationViewFragment()
     private var fragmentView : View? = null
     private var start : Boolean = true
-
+    private var notificationViewed = false
 
 
 
@@ -143,6 +143,8 @@ class NotificationFragment : Fragment() {
 //                }
 
             }
+
+
         }
 
 
@@ -171,15 +173,57 @@ class NotificationFragment : Fragment() {
             }
             else if (position == 1){
                 tab.text = "Updates"
+                tab.orCreateBadge.apply {
+                    number = notificationViewModel.numberOfNotifications
+                    backgroundColor = resources.getColor(R.color.notification)
+                    badgeTextColor = resources.getColor(R.color.white)
+                    if(notificationViewModel.numberOfNotifications==0){
+                        isVisible = false
+                    }
+                }
             }
             else{
                 tab.text = "Suggestions"
             }
         }.attach()
 
+        notificationTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: Tab?) {
+                if(tab?.position==1){
+                    requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).getOrCreateBadge(R.id.notification_page).apply {
+                        isVisible = false
+                    }
+                    notificationViewed = true
+                }
+                else{
+                    if(notificationViewed){
+                        notificationTabLayout.getTabAt(1)?.orCreateBadge?.isVisible= false
+                        notificationViewModel.clearNotificationCount()
+                    }
+
+                }
+
+            }
+
+            override fun onTabUnselected(tab: Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: Tab?) {
+
+            }
+
+        })
+
+
+
     }
 
     private fun setNotificationPageViewPagerForPublicAccount(view : View){
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation).getOrCreateBadge(R.id.notification_page).apply {
+            isVisible = false
+        }
+        notificationViewed = true
         val viewPager2 = view.findViewById<ViewPager2>(R.id.notification_view_pager)
         viewPager2.isSaveEnabled = false
         val viewPagerAdapter = ViewPagerAdapter(parentFragmentManager,lifecycle)
@@ -197,16 +241,59 @@ class NotificationFragment : Fragment() {
 
             if (position == 0){
                 tab.text = "Updates"
+
+                tab.orCreateBadge.apply {
+                    number = notificationViewModel.numberOfNotifications
+                    backgroundColor = resources.getColor(R.color.notification)
+                    if(notificationViewModel.numberOfNotifications==0){
+                        isVisible = false
+                    }
+                }
+
             }
             else{
                 tab.text = "Suggestions"
             }
         }.attach()
+
+        notificationTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: Tab?) {
+                if(notificationViewed){
+                    notificationTabLayout.getTabAt(0)?.orCreateBadge?.isVisible= false
+                    notificationViewModel.clearNotificationCount()
+                }
+
+            }
+
+            override fun onTabUnselected(tab: Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: Tab?) {
+
+            }
+
+        })
+
+
     }
 
     override fun onPause() {
         super.onPause()
         notificationViewModel.followAllUsers()
+        if(notificationViewed){
+            val notificationTabLayout = requireView().findViewById<TabLayout>(R.id.notification_tabLayout)
+            val tabCount = notificationTabLayout.tabCount
+            if(tabCount==2){
+                notificationTabLayout.getTabAt(0)?.orCreateBadge?.isVisible= false
+            }
+            else if(tabCount == 3){
+                notificationTabLayout.getTabAt(1)?.orCreateBadge?.isVisible= false
+            }
+            notificationViewModel.clearNotificationCount()
+        }
+
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.instagramv1.ui.mainscreen.profilescreen
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.instagramv1.*
 import com.example.instagramv1.adapters.ViewPagerAdapter
+import com.example.instagramv1.databinding.ActivitySampleBinding
 import com.example.instagramv1.databinding.FragmentProfileBinding
 import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.UserProfileViewModel
@@ -173,6 +175,7 @@ class ProfileFragment : Fragment() {
 
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
+
                 super.onPageSelected(position)
                 if(shouldScroll){
 
@@ -186,6 +189,8 @@ class ProfileFragment : Fragment() {
                     }
 
                 }
+
+
 
             }
 

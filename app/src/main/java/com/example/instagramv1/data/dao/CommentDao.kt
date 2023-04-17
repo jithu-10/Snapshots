@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.instagramv1.data.entities.Comment
 import com.example.instagramv1.model.CommentViewData
-import com.example.instagramv1.ui.commentscreen.CommentViewModel
+import com.example.instagramv1.ui.authscreen.commentscreen.CommentViewModel
 
 @Dao
 interface CommentDao {
@@ -21,12 +21,21 @@ interface CommentDao {
     fun getNumberOfComments(postId: Int) : LiveData<Int>
 
     @Insert
-    suspend fun insertComment(comment : Comment)
+    suspend fun insertComment(comment : Comment) : Long
 
     @Query("DELETE FROM comment WHERE comment_id = :commentId")
     suspend fun deleteComment(commentId : Int)
 
+    @Query("SELECT comment_id FROM comment WHERE post_id = :postId")
+    suspend fun getCommentsOfPost(postId: Int) : List<Int>
+
+    @Query("DELETE FROM comment WHERE post_id = :postId")
+    suspend fun deleteCommentsOfPost(postId: Int)
+
     @Query("SELECT user_id FROM comment WHERE comment_id = :commentId")
     suspend fun getCommentOwnerId(commentId: Int) : Int
+
+    @Query("SELECT post_id FROM comment WHERE comment_id = :commentId")
+    suspend fun getPostFromComment(commentId: Int) : Int
 
 }

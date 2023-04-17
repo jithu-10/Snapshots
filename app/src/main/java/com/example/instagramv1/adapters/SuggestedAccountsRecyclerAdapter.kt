@@ -121,6 +121,10 @@ class SuggestedAccountsRecyclerAdapter(
                 openProfile(suggestedUser.user_id)
             }
 
+            suggestedAccountViewBinding.suggestedAccountsLayout.setOnClickListener {
+                openProfile(suggestedUser.user_id)
+            }
+
 
         }
 

@@ -27,6 +27,8 @@ class EditProfileViewModel @Inject constructor(
     var phone : String? = null
     var email : String? = null
 
+    var galleryImagePath : String? = null
+
     var removePictureOption = false
 
     var previousUserName : String? = null

@@ -29,7 +29,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRegisterRepository(db : AppDatabase): RegisterRepository{
-         return RegisterRepositoryImpl(db.accountDao(),db.userDao())
+         return RegisterRepositoryImpl(db.accountDao(),db.userDao(),db.notificationDao())
     }
 
     @Provides
@@ -41,19 +41,19 @@ object AppModule {
     @Provides
     @Singleton
     fun provideInjectDataRepository(db : AppDatabase) : InjectDataRepository{
-        return InjectDataRepositoryImpl(db.accountDao(),db.userDao(),db.postDao())
+        return InjectDataRepositoryImpl(db.accountDao(),db.userDao(),db.postDao(),db.notificationDao())
     }
 
     @Provides
     @Singleton
     fun provideUserRepository(db : AppDatabase) : UserRepository{
-        return UserRepositoryImpl(db.userDao(),db.accountDao(),db.connectionDao(),db.notificationDao())
+        return UserRepositoryImpl(db.userDao(),db.accountDao(),db.connectionDao(),db.notificationDao(),db.notificationUpdateDao())
     }
 
     @Provides
     @Singleton
     fun providePostRepository(db : AppDatabase) : PostRepository{
-        return PostRepositoryImpl(db.postDao(),db.reactionDao(),db.commentDao(),db.commentReactionDao(),db.savedPostDao(),db.notificationDao())
+        return PostRepositoryImpl(db.postDao(),db.reactionDao(),db.commentDao(),db.commentReactionDao(),db.savedPostDao(),db.notificationDao(),db.notificationUpdateDao())
     }
 
     @Provides

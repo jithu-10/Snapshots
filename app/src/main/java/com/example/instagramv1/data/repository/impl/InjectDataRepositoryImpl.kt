@@ -2,9 +2,11 @@ package com.example.instagramv1.data.repository.impl
 
 import android.graphics.Bitmap
 import com.example.instagramv1.data.dao.AccountDao
+import com.example.instagramv1.data.dao.NotificationDao
 import com.example.instagramv1.data.dao.PostDao
 import com.example.instagramv1.data.dao.UserDao
 import com.example.instagramv1.data.entities.Account
+import com.example.instagramv1.data.entities.NotificationCount
 import com.example.instagramv1.data.entities.Post
 import com.example.instagramv1.data.entities.User
 import com.example.instagramv1.data.repository.InjectDataRepository
@@ -13,7 +15,8 @@ import java.util.*
 class InjectDataRepositoryImpl(
     private val accountDao : AccountDao,
     private val userDao : UserDao,
-    private val postDao : PostDao
+    private val postDao : PostDao,
+    private val notificationDao: NotificationDao
 ) : InjectDataRepository {
 
     override suspend fun addAccount(
@@ -29,6 +32,7 @@ class InjectDataRepositoryImpl(
         accountId : Int
     ) {
         addUser(userName,fullName,profilePicture,privateAccount,userId)
+        notificationDao.insertNotificationCount(NotificationCount(userId,0))
         accountDao.insertAccount(Account(email,phone,password,createdDate,userName,userId,accountId))
 
     }

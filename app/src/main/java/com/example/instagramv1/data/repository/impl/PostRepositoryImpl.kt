@@ -1,5 +1,6 @@
 package com.example.instagramv1.data.repository.impl
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.instagramv1.data.dao.*
@@ -14,7 +15,8 @@ class PostRepositoryImpl(
     private val commentDao : CommentDao,
     private val commentReactionDao: CommentReactionDao,
     private val savedPostDao: SavedPostDao,
-    private val notificationDao: NotificationDao
+    private val notificationDao: NotificationDao,
+    private val notificationUpdateDao: NotificationUpdateDao
 ) : PostRepository {
 
     override suspend fun postImage(postData: PostData) {
@@ -92,6 +94,9 @@ class PostRepositoryImpl(
         val postOwnerId = postDao.getPostOwnerId(postId)
         if(postOwnerId!=userId){
             notificationDao.addNotification(Notification(userId,postOwnerId,"liked your Post",Date()))
+            notificationUpdateDao.addNotificationUpdate(NotificationUpdate(userId,postOwnerId,Date(), NotificationType.LIKED_YOUR_POST,postId))
+            notificationDao.addNotificationCount(postOwnerId)
+
         }
 
     }
@@ -101,6 +106,8 @@ class PostRepositoryImpl(
         val postOwnerId = postDao.getPostOwnerId(postId)
         if(postOwnerId!=userId){
             notificationDao.deleteNotification(userId,postOwnerId,"liked your Post")
+            notificationUpdateDao.deletePostLikedNotification(userId,postOwnerId,postId)
+            notificationDao.decreaseNotificationCount(postOwnerId)
         }
     }
 
@@ -127,6 +134,8 @@ class PostRepositoryImpl(
         val postOwnerId = postDao.getPostOwnerId(postId)
         if(postOwnerId!=userId){
             notificationDao.addNotification(Notification(userId,postOwnerId,"saved your Post",Date()))
+            notificationUpdateDao.addNotificationUpdate(NotificationUpdate(userId,postOwnerId,Date(), NotificationType.SAVED_YOUR_POST,postId))
+            notificationDao.addNotificationCount(postOwnerId)
         }
     }
 
@@ -135,6 +144,8 @@ class PostRepositoryImpl(
         val postOwnerId = postDao.getPostOwnerId(postId)
         if(postOwnerId!=userId){
             notificationDao.deleteNotification(userId,postOwnerId,"saved your Post")
+            notificationUpdateDao.deletePostSavedNotification(userId,postOwnerId,postId)
+            notificationDao.decreaseNotificationCount(postOwnerId)
         }
     }
 
@@ -143,16 +154,19 @@ class PostRepositoryImpl(
     }
 
     override suspend fun postComment(commentData: CommentData) {
-        commentDao.insertComment(Comment(commentData.userId,commentData.postId,Date(),commentData.commentDesc))
+        val commentId = commentDao.insertComment(Comment(commentData.userId,commentData.postId,Date(),commentData.commentDesc))
         val postOwnerId = postDao.getPostOwnerId(commentData.postId)
 
         if(postOwnerId!=commentData.userId){
             notificationDao.addNotification(Notification(commentData.userId,postOwnerId,"commented on your Post",Date()))
+            notificationUpdateDao.addNotificationUpdate(NotificationUpdate(commentData.userId,postOwnerId,Date(), NotificationType.COMMENTED_ON_YOUR_POST,commentId.toInt()))
+            notificationDao.addNotificationCount(postOwnerId)
         }
     }
 
     override suspend fun deleteComment(commentId: Int) {
         commentDao.deleteComment(commentId)
+        notificationUpdateDao.deleteAllNotificationBasedOnComment(commentId)
     }
 
     override suspend fun addCommentReaction(userId: Int, commentId: Int) {
@@ -166,6 +180,8 @@ class PostRepositoryImpl(
         Log.d("Notification Special","commentOwnerId : $commentOwnerId")
         if(commentOwnerId!=userId){
             notificationDao.addNotification(Notification(userId,commentOwnerId,"liked your Comment",Date()))
+            notificationUpdateDao.addNotificationUpdate(NotificationUpdate(userId,commentOwnerId,Date(),NotificationType.LIKED_YOUR_COMMENT,commentId))
+            notificationDao.addNotificationCount(commentOwnerId)
         }
     }
 
@@ -177,11 +193,55 @@ class PostRepositoryImpl(
         Log.d("Notification Special","commentOwnerId : $commentOwnerId")
         if(commentOwnerId!=userId){
             notificationDao.deleteNotification(userId,commentOwnerId,"liked your Comment")
+            notificationUpdateDao.deleteCommentLikedNotification(userId,commentOwnerId,commentId)
+            notificationDao.decreaseNotificationCount(commentOwnerId)
         }
     }
 
     override suspend fun deletePost(postId: Int) {
         postDao.deletePost(postId)
+        notificationUpdateDao.deleteAllNotificationBasedOnPost(postId)
+        commentDao.getCommentsOfPost(postId).forEach {
+            //notificationUpdateDao.deleteAllNotificationBasedOnComment(it)
+            deleteComment(it)
+        }
+
+        commentDao.deleteCommentsOfPost(postId)
+    }
+
+    override suspend fun changePostLocation(postId: Int, location: String?) {
+        if(location!=null){
+            if(location.isBlank()){
+                postDao.changePostLocation(null,postId)
+            }
+            else{
+                postDao.changePostLocation(location,postId)
+            }
+
+        }
+
+
+    }
+
+    override suspend fun changePostDescription(postId: Int, description: String?) {
+        if(description!=null){
+            if(description.isBlank()){
+               postDao.changePostDescription(null,postId)
+            }
+            else{
+                postDao.changePostDescription(description,postId)
+            }
+
+        }
+
+    }
+
+    override suspend fun getPostImage(postId: Int): Bitmap {
+        return postDao.getPostImage(postId)
+    }
+
+    override suspend fun getPostFromComment(postId: Int): Int {
+        return commentDao.getPostFromComment(postId)
     }
 
 
