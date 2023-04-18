@@ -39,6 +39,7 @@ import dagger.hilt.android.internal.managers.FragmentComponentManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class PostWithCommentActivity : AppCompatActivity() {
@@ -394,7 +395,8 @@ class PostWithCommentActivity : AppCompatActivity() {
 
         commentBinding.imgViewSendIcon.setOnClickListener {
             val commentDesc = commentBinding.addComment.text.toString().trim()
-            val commentViewData = CommentViewData(-1,-1, viewModel.userId,viewModel.userName,viewModel.userImage,commentDesc,0,false)
+            val commentViewData = CommentViewData(-1,-1, viewModel.userId,viewModel.userName,viewModel.userImage,commentDesc,
+                Date(),0,false)
             commentsRecyclerAdapter.commentsList.add(0,commentViewData)
             commentsRecyclerAdapter.notifyDataSetChanged()
 

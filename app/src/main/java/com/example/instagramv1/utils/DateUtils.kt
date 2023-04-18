@@ -7,6 +7,48 @@ import java.util.concurrent.TimeUnit
 object DateUtils {
 
 
+    fun setCreatedTimeShortForm(createdTime : Date) : String{
+        val currentTime = Date()
+        val durationInMillis = currentTime.time -  createdTime.time
+        val days = TimeUnit.MILLISECONDS.toDays(durationInMillis).toInt()
+        val hours = TimeUnit.MILLISECONDS.toHours(durationInMillis).toInt()
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(durationInMillis).toInt()
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(durationInMillis).toInt()
+        if(days==0){
+            return if(hours==0){
+                if(minutes == 0){
+
+                    "${seconds}s"
+                } else{
+                    "${minutes}m"
+                }
+            } else{
+                "${hours}h"
+            }
+        }
+        else if(days<7){
+            return  "${days}d"
+        }
+        else if(days in 7..14){
+            return  "1w"
+        }
+        else{
+            val month = getMonthStringFromDate(createdTime)
+            val year = getYearFromDate(createdTime)
+            val day = getDayFromDate(createdTime)
+
+            val currentYear = getYearFromDate(currentTime)
+
+
+            return if(currentYear == year){
+                "$day ${month.substring(0,3)}"
+            } else{
+                "$day ${month.substring(0,3)} $year"
+            }
+
+
+        }
+    }
     fun setCreatedTime(createdTime : Date) : String{
         val currentTime = Date()
         val durationInMillis = currentTime.time -  createdTime.time
@@ -61,6 +103,12 @@ object DateUtils {
         val calendar = Calendar.getInstance()
         calendar.time = date
         return SimpleDateFormat("MMMM", Locale.getDefault()).format(calendar.time)
+    }
+
+    private fun getMonthFromDate(date : Date) : Int{
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar.get(Calendar.MONTH)
     }
 
     private fun getDayFromDate(date: Date): Int {

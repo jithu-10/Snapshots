@@ -60,7 +60,7 @@ class PostRepositoryImpl(
         location: String
     ): LiveData<List<PostViewData>> {
         var _location = location.trim().lowercase()
-        _location = "$_location%"
+        _location = "%$_location%"
         return postDao.getPostByLocation(userId,_location).apply {
             Log.d("Search Places",this.value?.size.toString())
         }

@@ -63,7 +63,7 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUsers(name: String): LiveData<List<UserMiniProfileData>> {
-        val _name = name.trim().lowercase() + "%"
+        val _name = "%"+ name.trim().lowercase() + "%"
         return userDao.getUsers(_name)
     }
 

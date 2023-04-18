@@ -34,6 +34,7 @@ import com.example.instagramv1.utils.loadImage
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class CommentFragment : Fragment() ,CommentsRecyclerAdapter.onEventListener{
@@ -170,7 +171,8 @@ class CommentFragment : Fragment() ,CommentsRecyclerAdapter.onEventListener{
 
         commentBinding.imgViewSendIcon.setOnClickListener {
             val commentDesc = commentBinding.addComment.text.toString().trim()
-            val commentViewData = CommentViewData(-1,-1, viewModel.userId,viewModel.userName,viewModel.userImage,commentDesc,0,false)
+            val commentViewData = CommentViewData(-1,-1, viewModel.userId,viewModel.userName,viewModel.userImage,commentDesc,
+                Date(),0,false)
             commentsRecyclerAdapter.commentsList.add(0,commentViewData)
             commentsRecyclerAdapter.notifyDataSetChanged()
 

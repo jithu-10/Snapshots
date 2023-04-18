@@ -17,6 +17,7 @@ import com.example.instagramv1.databinding.CommentViewBinding
 import com.example.instagramv1.model.CommentViewData
 import com.example.instagramv1.ui.authscreen.commentscreen.CommentActivity
 import com.example.instagramv1.ui.authscreen.commentscreen.CommentViewModel
+import com.example.instagramv1.utils.DateUtils
 
 class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : RecyclerView.Adapter<CommentsRecyclerAdapter.CommentsViewHolder>() {
 
@@ -144,15 +145,19 @@ class CommentsRecyclerAdapter(val commentViewModel: CommentViewModel) : Recycler
                 }
             }
 
+            commentViewBinding.createdTime.text = DateUtils.setCreatedTimeShortForm(comment.comment_created_time)
+
             if(comment.comment_id == -1){
                 commentViewBinding.posting.visibility = View.VISIBLE
                 commentViewBinding.imgViewCommentLikeBtn.visibility = View.GONE
                 commentViewBinding.commentLikeCount.visibility = View.GONE
+                commentViewBinding.createdTime.visibility = View.GONE
             }
             else{
                 commentViewBinding.posting.visibility = View.GONE
                 commentViewBinding.imgViewCommentLikeBtn.visibility = View.VISIBLE
                 commentViewBinding.commentLikeCount.visibility = View.VISIBLE
+                commentViewBinding.createdTime.visibility = View.VISIBLE
             }
 
 

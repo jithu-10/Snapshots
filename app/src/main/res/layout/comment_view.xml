@@ -80,6 +80,14 @@
         app:layout_constraintStart_toEndOf="@id/comment_owner_name"
         app:layout_constraintTop_toTopOf="@id/comment_owner_name"
         android:layout_marginStart="5dp"/>
+    <TextView
+        android:id="@+id/createdTime"
+        android:layout_width="wrap_content"
+        android:textSize="10dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/comment_owner_name"
+        app:layout_constraintBaseline_toBaselineOf="@id/comment_owner_name"
+        android:layout_marginStart="5dp"/>
 
     <ImageView
         android:id="@+id/imgViewCommentLikeBtn"

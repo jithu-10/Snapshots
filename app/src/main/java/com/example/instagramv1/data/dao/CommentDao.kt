@@ -9,12 +9,12 @@ import com.example.instagramv1.ui.authscreen.commentscreen.CommentViewModel
 @Dao
 interface CommentDao {
 
-    @Query("SELECT comment.comment_id, comment.post_id,user.user_id AS comment_owner_user_id, user.user_name AS comment_owner_user_name, user.profile_picture AS comment_owner_profile_picture, comment.description as comment_description, COUNT(commentReaction.user_id) AS comment_reaction_count, CASE WHEN EXISTS (SELECT 1 FROM commentReaction WHERE comment_id = comment.comment_id AND user_id = :userId) THEN 1 ELSE 0 END AS user_reacted\n" +
+    @Query("SELECT comment.comment_id, comment.post_id,user.user_id AS comment_owner_user_id, user.user_name AS comment_owner_user_name, user.profile_picture AS comment_owner_profile_picture, comment.description as comment_description, comment.commented_time as comment_created_time, COUNT(commentReaction.user_id) AS comment_reaction_count, CASE WHEN EXISTS (SELECT 1 FROM commentReaction WHERE comment_id = comment.comment_id AND user_id = :userId) THEN 1 ELSE 0 END AS user_reacted\n" +
             "FROM comment\n" +
             "INNER JOIN user ON comment.user_id = user.user_id\n" +
             "LEFT JOIN commentReaction ON comment.comment_id = commentReaction.comment_id\n" +
             "WHERE Comment.post_id = :postId\n" +
-            "GROUP BY comment.comment_id ORDER BY comment.comment_id DESC")
+            "GROUP BY comment.comment_id ORDER BY comment.commented_time DESC")
     fun getComments(postId : Int,userId : Int) : LiveData<List<CommentViewData>>
 
     @Query("SELECT COUNT(*) FROM comment WHERE post_id = :postId")

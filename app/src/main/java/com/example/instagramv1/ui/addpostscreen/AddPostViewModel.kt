@@ -42,6 +42,8 @@ class AddPostViewModel @Inject constructor(
 
 
     suspend fun postImage(){
+        description = description.trim()
+        location = location.trim()
         val postData =
             PostData(
                 userId,
