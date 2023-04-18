@@ -245,6 +245,7 @@ class NotificationFragment : Fragment() {
                 tab.orCreateBadge.apply {
                     number = notificationViewModel.numberOfNotifications
                     backgroundColor = resources.getColor(R.color.notification)
+                    badgeTextColor = resources.getColor(R.color.white)
                     if(notificationViewModel.numberOfNotifications==0){
                         isVisible = false
                     }
