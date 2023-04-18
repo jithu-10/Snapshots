@@ -81,9 +81,14 @@ object Validators {
         return regexValidator("([1-9]\\d{9})", phoneNumber)
     }
 
-    private fun passwordValidator(password: String): Boolean{
-        return regexValidator("^(?=.*[A-Za-z])(?=.* ̰ ̰\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$",password)
+    private fun passwordValidator(password: String): Boolean {
+        val regex ="^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\$%^&()_+\\-=\\[\\]{};':\"\\|,.<>\\/?₹])(?!.*\\s).{8,}$"
+        //val regex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\$%^&()_+\\-=\\[\\]{};':\"\\|,.<>\\/?])(?!.*\\s).{8,}$"
+        return regexValidator(regex, password)
     }
+
+
+
 
     private fun regexValidator(regex : String, value : String): Boolean{
         val pattern = Regex(regex)

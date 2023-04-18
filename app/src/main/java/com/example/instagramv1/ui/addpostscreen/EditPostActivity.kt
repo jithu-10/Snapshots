@@ -3,6 +3,7 @@ package com.example.instagramv1.ui.addpostscreen
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -33,10 +34,26 @@ class EditPostActivity : AppCompatActivity() {
                 viewModel.description = it.post_description
                 viewModel.location = it.post_location
 
-                editPostBinding.tiDescription.setText(it.post_description)
-                editPostBinding.tiLocation.setText(it.post_location)
+
                 loadImage(editPostBinding.postSampleView,it.post_image)
-                editPostBinding.executePendingBindings()
+                Log.d("Setting Edit","location : ${it.post_location} ${it.post_description}")
+//                editPostBinding.tiDescription.setText(it.post_description)
+//                editPostBinding.tiLocation.setText(it.post_location)
+
+                it.post_description?.let {
+                    editPostBinding.tiDescription.post {
+                        editPostBinding.tiDescription.setText(it)
+                    }
+                }
+
+                it.post_location?.let {
+                    editPostBinding.tiLocation.post {
+                        editPostBinding.tiLocation.setText(it)
+                    }
+                }
+
+                //editPostBinding.executePendingBindings()
+
             }
         }
 
