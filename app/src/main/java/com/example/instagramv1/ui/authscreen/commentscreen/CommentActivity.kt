@@ -36,6 +36,7 @@ class CommentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         commentBinding = DataBindingUtil.setContentView(this, R.layout.activity_comment)
+        commentBinding.model = viewModel
 
         val sharedPref = getSharedPreferences("COMMON_PREFERENCE", Context.MODE_PRIVATE) ?: return
         val userId = sharedPref.getInt("USER_ID", -1)

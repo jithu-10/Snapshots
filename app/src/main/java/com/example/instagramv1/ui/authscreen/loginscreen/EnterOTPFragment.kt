@@ -40,18 +40,16 @@ class EnterOTPFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        if(fragmentView == null){
-            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_enter_o_t_p, container, false)
-            val view = binding.root
-            fragmentView = view
-            setupListeners()
-            binding.tiOTP.addTextChangedListener(textWatcher)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_enter_o_t_p, container, false)
+        binding.loginViewModel = viewModel
+        return binding.root
+    }
 
-            return fragmentView
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupListeners()
 
-        return fragmentView
     }
 
     private val textWatcher : TextWatcher = object : TextWatcher {
@@ -103,6 +101,7 @@ class EnterOTPFragment : Fragment() {
                 binding.etEnterOtp.isErrorEnabled = false
             }
         }
+        binding.tiOTP.addTextChangedListener(textWatcher)
 
     }
 

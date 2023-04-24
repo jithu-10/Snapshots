@@ -138,7 +138,7 @@ class InjectDataViewModel @Inject constructor(
         }
 
         for(u in userIds){
-            postRepository.addReaction(u,1)
+            postRepository.addReaction(u,6)
         }
 
 

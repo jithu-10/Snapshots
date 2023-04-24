@@ -116,6 +116,7 @@ class EnterPasswordFragment : Fragment() {
         }
 
         binding.btnForgotPassword.setOnClickListener {
+            viewModel.otpUserInfo = ""
             parentFragmentManager.beginTransaction().apply {
                 addToBackStack(null)
                 replace(R.id.frame_layout,OTPFragment())

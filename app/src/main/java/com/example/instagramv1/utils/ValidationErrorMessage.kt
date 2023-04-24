@@ -2,7 +2,7 @@ package com.example.instagramv1.utils
 
 enum class ValidationErrorMessage(val message : String) {
     NAME_NOT_GIVEN("Full Name is empty"),
-    NAME_NOT_VALID("Name not valid - Minimum 3 letters and maximum 25 letters , cannot contain numbers and empty spaces at end and start and contain only few special characters ' -"),
+    NAME_NOT_VALID("Name not valid - Minimum 3 letters and maximum 25 letters , contain only alphabets , special characters ' and - in the middle and spaces in the middle, but not at the beginning or end."),
     USER_NAME_ALREADY_EXIST("Username already exist"),
     USER_NAME_DOES_NOT_MEET_REQUIREMENTS("Minimum 4 letters, maximum 20 letters, at least 3 alphabets,cannot contain empty spaces, can contain numbers and . _ "),
     USER_NAME_NOT_GIVEN("Username is empty"),

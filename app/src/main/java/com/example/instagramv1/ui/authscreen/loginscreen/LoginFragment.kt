@@ -75,6 +75,7 @@ class LoginFragment : Fragment() {
 
         loginBinding.btnContinue.setOnClickListener {
             hideSoftKeyboard(loginBinding.userNameOrEmailEt)
+            viewModel.password = ""
             lifecycleScope.launch {
                 val result = viewModel.checkUserInfo()
                 if(result){
@@ -97,6 +98,7 @@ class LoginFragment : Fragment() {
         }
 
         loginBinding.btnForgotPassword.setOnClickListener {
+            viewModel.otpUserInfo = ""
             parentFragmentManager.beginTransaction().apply {
                 addToBackStack(null)
                 replace(R.id.frame_layout,OTPFragment())

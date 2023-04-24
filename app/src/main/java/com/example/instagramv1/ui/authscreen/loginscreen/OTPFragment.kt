@@ -43,18 +43,11 @@ class OTPFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View ?{
+    ): View {
 
-        if(fragmentView == null){
-            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_o_t_p, container, false)
-            val view = binding.root
-            fragmentView = view
-            setupListeners()
-            createNotificationChannel()
-            return fragmentView
-        }
-
-        return fragmentView
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_o_t_p, container, false)
+        binding.loginViewModel = viewModel
+        return binding.root
 
 
 
@@ -62,27 +55,29 @@ class OTPFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupListeners()
+        createNotificationChannel()
     }
 
     private fun setupListeners(){
         binding.btnSendOtp.setOnClickListener {
+            viewModel.otp = ""
             sendOtp()
-            hideSoftKeyboard(binding.tiPhoneOrEmail);
+            hideSoftKeyboard(binding.tiPhoneOrEmailOTP);
         }
 
         binding.backImageBtn.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        binding.tiPhoneOrEmail.setOnFocusChangeListener{_,focused ->
+        binding.tiPhoneOrEmailOTP.setOnFocusChangeListener{_,focused ->
             if(focused){
-                binding.etEnterPhoneOrEmail.isErrorEnabled = false
+                binding.etEnterPhoneOrEmailOTP.isErrorEnabled = false
             }
 
         }
 
-        binding.tiPhoneOrEmail.addTextChangedListener(textWatcher)
+        binding.tiPhoneOrEmailOTP.addTextChangedListener(textWatcher)
     }
 
     private val textWatcher : TextWatcher = object : TextWatcher{
@@ -95,7 +90,7 @@ class OTPFragment : Fragment() {
         }
 
         override fun afterTextChanged(s: Editable?) {
-            binding.btnSendOtp.isEnabled = binding.tiPhoneOrEmail.text!!.isNotBlank()
+            binding.btnSendOtp.isEnabled = binding.tiPhoneOrEmailOTP.text!!.isNotBlank()
         }
 
     }
@@ -142,7 +137,7 @@ class OTPFragment : Fragment() {
     private fun sendOtp() {
         if (NotificationManagerCompat.from(requireActivity()).areNotificationsEnabled()) {
             lifecycleScope.launch {
-                viewModel.otpUserInfo = binding.tiPhoneOrEmail.text.toString()
+                viewModel.otpUserInfo = binding.tiPhoneOrEmailOTP.text.toString()
                 if (viewModel.checkOtpUserInfo()) {
                     viewModel.givenOtp = getRandomNumberString()
                     Log.d("Special", viewModel.givenOtp)
@@ -156,8 +151,8 @@ class OTPFragment : Fragment() {
                     buildNotification(viewModel.givenOtp)
                 } else {
                     if(viewModel.otpUserInfo.isNotBlank()){
-                        binding.etEnterPhoneOrEmail.isErrorEnabled = true
-                        binding.etEnterPhoneOrEmail.error = "User not exist"
+                        binding.etEnterPhoneOrEmailOTP.isErrorEnabled = true
+                        binding.etEnterPhoneOrEmailOTP.error = "User not exist"
                     }
 
                 }
