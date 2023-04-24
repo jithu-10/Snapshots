@@ -147,7 +147,7 @@ class OTPFragment : Fragment() {
                         replace(R.id.frame_layout, EnterOTPFragment())
                         commit()
                     }
-                    delay(2000)
+                    delay(1000)
                     buildNotification(viewModel.givenOtp)
                 } else {
                     if(viewModel.otpUserInfo.isNotBlank()){

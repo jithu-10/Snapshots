@@ -23,6 +23,10 @@ class SearchHistoryRecyclerAdapter(private val searchViewModel: SearchViewModel,
 
         fun bind(historyText : String){
             searchHistoryViewBinding.historyText = historyText
+
+            searchHistoryViewBinding.searchHistoryLayout.setOnClickListener {
+                eventListener.onSearchItemClickEvent(historyText)
+            }
             searchHistoryViewBinding.searchHistoryTv.setOnClickListener {
                 eventListener.onSearchItemClickEvent(historyText)
             }

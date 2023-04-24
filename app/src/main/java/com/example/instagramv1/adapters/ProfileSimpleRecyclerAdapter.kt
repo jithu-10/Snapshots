@@ -85,6 +85,10 @@ class ProfileSimpleRecyclerAdapter(
                 openProfile(user.user_id)
             }
 
+            otherProfileSimpleViewBinding.profileSimpleLayout.setOnClickListener{
+                openProfile(user.user_id)
+            }
+
 
             otherProfileSimpleViewBinding.btnFollowing.setOnClickListener {
                 //viewModel.unfollowUser(user.user_id)

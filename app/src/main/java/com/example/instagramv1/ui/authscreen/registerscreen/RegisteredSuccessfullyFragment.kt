@@ -40,7 +40,7 @@ class RegisteredSuccessfullyFragment : Fragment() {
             val result = viewModel.login()
             if(result){
                 saveLoginData()
-                delay(2000)
+                delay(1000)
                 startMainActivity()
             }
 //            delay(3000)
