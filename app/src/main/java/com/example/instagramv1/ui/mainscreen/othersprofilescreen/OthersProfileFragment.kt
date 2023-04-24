@@ -26,6 +26,7 @@ import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.explorescreen.ExplorePostsViewModel
 import com.example.instagramv1.ui.mainscreen.profilescreen.ProfileFragment
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -40,6 +41,7 @@ class OthersProfileFragment : Fragment(),PostsRecyclerAdapter.EventListener {
     private val postViewModel by activityViewModels<PostViewModel>()
     private lateinit var othersProfileBinding: FragmentOthersProfileBinding
     private var recyclerView : RecyclerView? = null
+    private var menuItemId : Int = -1
     private var postRecyclerAdapter : PostsRecyclerAdapter? = null
 
 
@@ -51,6 +53,8 @@ class OthersProfileFragment : Fragment(),PostsRecyclerAdapter.EventListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val bottomNavigationView = requireActivity().findViewById<NavigationBarView>(R.id.bottom_navigation)
+        menuItemId = bottomNavigationView.selectedItemId
         othersProfileBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_others_profile, container, false)
         othersProfileBinding.otherUserProfileViewModel = otherProfileViewModel
@@ -60,6 +64,12 @@ class OthersProfileFragment : Fragment(),PostsRecyclerAdapter.EventListener {
     override fun onResume() {
         super.onResume()
         othersProfileBinding.invalidateAll()
+        val bottomNavigationView = requireActivity().findViewById<NavigationBarView>(R.id.bottom_navigation)
+        val menuItem = bottomNavigationView.menu.findItem(menuItemId)
+        if(!menuItem.isChecked){
+            menuItem.isChecked = true
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -277,7 +287,11 @@ class OthersProfileFragment : Fragment(),PostsRecyclerAdapter.EventListener {
 
 
 
+
+
     override fun onPostItemClickEvent() {
+        recyclerView?.scrollToPosition(0)
+        view?.findViewById<AppBarLayout>(R.id.appBarLayout)?.setExpanded(true,true)
 
     }
 

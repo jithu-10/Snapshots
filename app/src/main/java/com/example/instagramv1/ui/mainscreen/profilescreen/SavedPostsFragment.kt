@@ -87,7 +87,11 @@ class SavedPostsFragment : Fragment(),PostsRecyclerAdapter.EventListener {
     }
 
     override fun onPostItemClickEvent() {
+        val profileFragment: ProfileFragment =
+            parentFragmentManager.findFragmentByTag("PROFILE_FRAGMENT") as ProfileFragment
+        postsRecyclerView?.scrollToPosition(0)
 
+        profileFragment.view?.findViewById<AppBarLayout>(R.id.appBarLayout)?.setExpanded(true,true)
     }
 
 }

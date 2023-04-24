@@ -9,6 +9,8 @@
             type="com.example.instagramv1.ui.authscreen.loginscreen.LoginViewModel" />
     </data>
 
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         />
 
 <!--    <ImageView-->
@@ -41,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="SnapShots"
         android:fontFamily="@font/cheri"
         style="@style/AppNameLogoStyle"
@@ -168,7 +170,6 @@
         android:minWidth="0dp"
         android:padding="0dp"
         android:textColor="@color/facebookBlue"
-        android:layout_marginBottom="30dp"
         android:text="@string/signup"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -201,4 +202,7 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

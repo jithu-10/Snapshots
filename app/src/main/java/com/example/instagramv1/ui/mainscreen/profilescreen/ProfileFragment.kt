@@ -1,6 +1,8 @@
 package com.example.instagramv1.ui.mainscreen.profilescreen
 
 
+
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +16,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -26,21 +30,25 @@ import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.UserProfileViewModel
 import com.example.instagramv1.ui.mainscreen.profilescreen.connectionscreen.UserConnectionsFragment
 import com.example.instagramv1.ui.mainscreen.profilescreen.editprofilescreen.EditProfileActivity
+import com.example.instagramv1.utils.DelayClickListener
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
 
     private val viewModel by activityViewModels<UserProfileViewModel>()
     private val postViewModel by activityViewModels<PostViewModel>()
     private lateinit var profileBinding: FragmentProfileBinding
     private var fragmentView: View? = null
-
+    private var settingsBottomSheetFragment : SettingsBottomSheetFragment? = null
+    private var menuItemId : Int = -1
     private var shouldScroll = false
 
     companion object{
@@ -62,6 +70,8 @@ class ProfileFragment : Fragment() {
 //        profileBinding.userProfileViewModel = viewModel
 //
         if(fragmentView == null){
+            val bottomNavigationView = requireActivity().findViewById<NavigationBarView>(R.id.bottom_navigation)
+            menuItemId = bottomNavigationView.selectedItemId
             profileBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_profile, container, false)
             profileBinding.userProfileViewModel = viewModel
@@ -74,9 +84,17 @@ class ProfileFragment : Fragment() {
             view.findViewById<ImageView>(R.id.imgViewBackBtn).setOnClickListener {
                 parentFragmentManager.popBackStack()
             }
-            view.findViewById<ImageView>(R.id.imgViewSettingsBtn).setOnClickListener {
-                showSettingsBottomSheetFragment()
-            }
+
+            view.findViewById<ImageView>(R.id.imgViewSettingsBtn).setOnClickListener(object : DelayClickListener(){
+                override fun onDelayClick() {
+                    showSettingsBottomSheetFragment()
+                }
+
+            })
+//            view.findViewById<ImageView>(R.id.imgViewSettingsBtn).setOnClickListener {
+//                showSettingsBottomSheetFragment()
+//
+//            }
             view.findViewById<Button>(R.id.btnEditProfile).setOnClickListener {
                 //showEditProfileBottomSheetFragment()
                 startEditProfileActivity()
@@ -92,6 +110,9 @@ class ProfileFragment : Fragment() {
                 view.findViewById<AppBarLayout>(R.id.appBarLayout).setExpanded(false,true)
             }
 
+
+
+
             return fragmentView
 
         }
@@ -101,6 +122,12 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         profileBinding.invalidateAll()
+        val bottomNavigationView = requireActivity().findViewById<NavigationBarView>(R.id.bottom_navigation)
+        val menuItem = bottomNavigationView.menu.findItem(menuItemId)
+        if(!menuItem.isChecked){
+            menuItem.isChecked = true
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,7 +152,10 @@ class ProfileFragment : Fragment() {
         val settingsBottomSheetFragment = SettingsBottomSheetFragment()
         settingsBottomSheetFragment.show(parentFragmentManager,tag)
 
+
     }
+
+
 
 
     private fun startEditProfileActivity(){
@@ -163,30 +193,71 @@ class ProfileFragment : Fragment() {
 
 
 
+
+
         val appBarLayout = view.findViewById(R.id.appBarLayout) as AppBarLayout
         appBarLayout.addOnOffsetChangedListener { appBar, verticalOffset ->
-            if(verticalOffset==0){
+            Log.d("Scroll Testing","Vertical Offset : $verticalOffset")
+            Log.d("Scroll Testing","Scroll Range : ${appBarLayout.totalScrollRange}")
+            val offset = Math.abs(verticalOffset)
+
+            if(offset < appBarLayout.totalScrollRange){
                 shouldScroll = true
+
             }
         }
 
-
-
+        viewPager2.offscreenPageLimit = 2
 
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
 
                 super.onPageSelected(position)
+                Log.d("Scroll Testing","Should Scroll : $shouldScroll")
                 if(shouldScroll){
+//                    val fragmentManager: FragmentManager = parentFragmentManager
+//                    val fragmentList: List<Fragment> = fragmentManager.fragments
+//                    val currentFragments = mutableListOf<Fragment>()
+//                    for (fragment in fragmentList) {
+//                        val tag = fragment.tag
+//                        if(tag == "f${viewPager2.currentItem}"){
+//                            currentFragments.add(fragment)
+//                        }
+//                        Log.d("Fragment List",fragment.toString()+" tag : "+tag)
+//                        // Do something with the fragment and its tag
+//                    }
+//
+
+
 
                     val fragment = parentFragmentManager.findFragmentByTag("f${viewPager2.currentItem}")
-                    if(fragment is SavedPostsFragment){
-                        fragment.postsRecyclerView?.scrollToPosition(0)
+
+                    if(viewPager2.currentItem == 0){
+                        userPostsFragment.postsRecyclerView?.scrollToPosition(0)
                     }
-                    if(fragment is UserPostsFragment){
-                        fragment.postsRecyclerView?.scrollToPosition(0)
+                    else{
+                        savedPostsFragment.postsRecyclerView?.scrollToPosition(0)
+                    }
+
+//                    Log.d("Scroll Testing Fragment",fragment.toString())
+//                    if(fragment is SavedPostsFragment){
+//                        fragment.postsRecyclerView?.scrollToPosition(0)
+//                        Log.d("Scroll Testing","Scrolled")
+//                    }
+//                    if(fragment is UserPostsFragment){
+//                        fragment.postsRecyclerView?.scrollToPosition(0)
+//                        Log.d("Scroll Testing","Scrolled")
+//                    }
+                    Log.d("Scroll Testing","Is Lifted : ${appBarLayout.isLifted}")
+                    if(!appBarLayout.isLifted){
+
 
                     }
+                    shouldScroll = false
+
+
+
+
 
                 }
 
@@ -232,6 +303,14 @@ class ProfileFragment : Fragment() {
         super.onPause()
         postViewModel.addAllReaction()
         postViewModel.removeAllReaction()
+    }
+
+    override fun onCancel(dialog: DialogInterface?) {
+
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+
     }
 
 }

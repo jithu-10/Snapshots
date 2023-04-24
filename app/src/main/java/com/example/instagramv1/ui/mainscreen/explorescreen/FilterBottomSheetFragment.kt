@@ -3,6 +3,8 @@ package com.example.instagramv1.ui.mainscreen.explorescreen
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +58,7 @@ class FilterBottomSheetFragment  : BottomSheetDialogFragment(){
                 viewModel.sort = FilterOptions.SORT_BY_DATE_DESC
                 viewModel.changed.value = true
             }
+            dismiss()
 
         }
 
@@ -65,6 +68,7 @@ class FilterBottomSheetFragment  : BottomSheetDialogFragment(){
                 viewModel.sort = FilterOptions.SORT_BY_DATE_ASC
                 viewModel.changed.value = true
             }
+            dismiss()
 
         }
 
@@ -74,6 +78,7 @@ class FilterBottomSheetFragment  : BottomSheetDialogFragment(){
                 viewModel.sort = FilterOptions.MOST_LIKED
                 viewModel.changed.value = true
             }
+            dismiss()
 
         }
 
@@ -83,6 +88,7 @@ class FilterBottomSheetFragment  : BottomSheetDialogFragment(){
                 viewModel.sort = FilterOptions.MOST_COMMENTED
                 viewModel.changed.value = true
             }
+            dismiss()
 
         }
 //        radioGroup.setOnCheckedChangeListener { _, checkedId ->
@@ -163,6 +169,8 @@ class FilterBottomSheetFragment  : BottomSheetDialogFragment(){
     private fun refreshFragment() {
         parentFragmentManager.beginTransaction().replace(R.id.frame_page, ExploreFragment()).commit()
     }
+
+
 
     override fun onPause() {
         super.onPause()

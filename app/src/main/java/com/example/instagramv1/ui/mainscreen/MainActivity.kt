@@ -1,11 +1,13 @@
 package com.example.instagramv1.ui.mainscreen
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -342,21 +344,42 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private fun getPermission(){
-        if(ActivityCompat.checkSelfPermission(this,READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,
-                arrayOf(READ_EXTERNAL_STORAGE),
-                REQUEST_CODE_READ_PERMISSION);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU){
+            if(ActivityCompat.checkSelfPermission(this, READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(READ_MEDIA_IMAGES),
+                    REQUEST_CODE_READ_PERMISSION);
+
+            }
+        } else{
+            if(ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(READ_EXTERNAL_STORAGE),
+                    REQUEST_CODE_READ_PERMISSION);
+
+            }
         }
+
+
+
+
     }
 
     private fun checkForPermission() : Boolean{
-        return ActivityCompat.checkSelfPermission(this,READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU){
+            return ActivityCompat.checkSelfPermission(this, READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED
+        } else{
+            return ActivityCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+
     }
 
     companion object{
         const val REQUEST_CODE = 1
         private const val REQUEST_CODE_READ_PERMISSION = 22
     }
+
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

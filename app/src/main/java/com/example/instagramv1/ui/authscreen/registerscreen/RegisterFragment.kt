@@ -336,9 +336,20 @@ class RegisterFragment : Fragment() {
                     registerBinding.etPassword.isErrorEnabled  = false
                     registerBinding.etPassword.error = null
                 }
+
+                val validation2 = validateConfirmPassword()
+                if(validation2!=null){
+                    registerBinding.etConfirmPassword.isErrorEnabled = true
+                    registerBinding.etConfirmPassword.error = validation2
+                }
+                else{
+                    registerBinding.etConfirmPassword.isErrorEnabled = false
+                    registerBinding.etConfirmPassword.error = null
+                }
             }
             else{
                 registerBinding.etPassword.isErrorEnabled = false
+                registerBinding.etConfirmPassword.isErrorEnabled = false
             }
         }
     }

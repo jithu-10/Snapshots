@@ -24,10 +24,5 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         return fragments[position]
     }
 
-    
-
-
-
-
 
 }

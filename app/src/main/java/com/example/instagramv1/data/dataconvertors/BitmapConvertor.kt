@@ -2,6 +2,7 @@ package com.example.instagramv1.data.dataconvertors
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.util.LruCache
 import androidx.room.TypeConverter
 import java.io.ByteArrayOutputStream
@@ -14,7 +15,7 @@ object BitmapConvertor {
 
     @TypeConverter
     fun toBitmap(byteArray: ByteArray?): Bitmap? {
-
+        Log.d("Image Check",byteArray.toString())
         return byteArray?.let {
             //BitmapFactory.decodeByteArray(byteArray,0,byteArray.size)
             if(byteArray.isEmpty()){

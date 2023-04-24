@@ -24,8 +24,8 @@ class EditPostViewModel @Inject constructor(
     suspend fun updatePostDetails(){
         Log.d("Edit Option","New Location : $location")
         Log.d("Edit Option","New Description : $description")
-        postRepository.changePostLocation(postId,location)
-        postRepository.changePostDescription(postId,description)
+        postRepository.changePostLocation(postId,location?.trim())
+        postRepository.changePostDescription(postId,description?.trim())
     }
 
     suspend fun getPost() : LiveData<PostViewData> {

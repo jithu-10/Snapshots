@@ -3,14 +3,12 @@ package com.example.instagramv1.ui.mainscreen.profilescreen
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +16,7 @@ import com.example.instagramv1.R
 import com.example.instagramv1.adapters.PostsRecyclerAdapter
 import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.mainscreen.explorescreen.ExplorePostsViewModel
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -85,7 +84,11 @@ class UserPostsFragment : Fragment(),PostsRecyclerAdapter.EventListener {
     }
 
     override fun onPostItemClickEvent() {
+        val profileFragment: ProfileFragment =
+            parentFragmentManager.findFragmentByTag("PROFILE_FRAGMENT") as ProfileFragment
+        postsRecyclerView?.scrollToPosition(0)
 
+        profileFragment.view?.findViewById<AppBarLayout>(R.id.appBarLayout)?.setExpanded(true,true)
     }
 
 }

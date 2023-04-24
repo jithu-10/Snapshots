@@ -131,6 +131,8 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
     private val registerResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == RESULT_OK){
+            val path = getRealPathFromURI(imageUri)
+            addPostViewModel.galleryImagePath = path
             loadNewImage(getRealPathFromURI(imageUri)!!)
         } else {
             deleteImage(imageUri)
@@ -170,7 +172,7 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
 
     private fun hasGalleryPermission(): Boolean {
-        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun hasImagesPermission(): Boolean{
@@ -179,7 +181,7 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
     private fun askForGalleryPermission() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            requireActivity(), arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
             REQUEST_CODE_READ_PERMISSION
         )
     }
@@ -203,7 +205,7 @@ class GetProfilePhotoDialogFragment : DialogFragment() {
 
     private fun loadNewImage(filePath: String) {
         val bitmap = BitmapFactory.decodeFile(filePath)
-        addPostViewModel.originalPicture = bitmap
+        addPostViewModel.profilePicture = bitmap
         openCropImageFragment()
 
     }

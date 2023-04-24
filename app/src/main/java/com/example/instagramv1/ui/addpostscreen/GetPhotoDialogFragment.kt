@@ -173,7 +173,7 @@ class GetPhotoDialogFragment : DialogFragment() {
 
 
     private fun hasGalleryPermission(): Boolean {
-        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun hasImagesPermission(): Boolean{
@@ -182,7 +182,7 @@ class GetPhotoDialogFragment : DialogFragment() {
 
     private fun askForGalleryPermission() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            requireActivity(), arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
             REQUEST_CODE_READ_PERMISSION
         )
     }

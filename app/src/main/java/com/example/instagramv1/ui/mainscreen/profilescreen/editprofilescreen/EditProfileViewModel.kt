@@ -43,7 +43,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     suspend fun updateUserEditableData() {
-        userRepository.updateUserData(UserEditableData(email!!,phone!!,userName!!,fullName!!,profilePicture),userId)
+        userRepository.updateUserData(UserEditableData(email!!.lowercase(),phone!!,userName!!,fullName!!,profilePicture),userId)
     }
 
     suspend fun isUserNameAlreadyExist() : Boolean{
@@ -54,10 +54,10 @@ class EditProfileViewModel @Inject constructor(
     }
 
     suspend fun isEmailAlreadyExist() : Boolean{
-        if(previousEmail == email){
+        if(previousEmail == email!!.lowercase()){
             return false
         }
-        return userRepository.isEmailAlreadyExist(email!!)
+        return userRepository.isEmailAlreadyExist(email!!.lowercase())
     }
 
     suspend fun isPhoneAlreadyExist() : Boolean{

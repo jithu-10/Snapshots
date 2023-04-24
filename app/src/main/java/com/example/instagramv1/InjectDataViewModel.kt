@@ -24,20 +24,19 @@ class InjectDataViewModel @Inject constructor(
                                 "rock@gmail.com",
                                 "anadearmas@gmail.com",
                                 "familyguy@gmail.com",
-                                "memetamil@gmail.com",
                                 "ronaldo@gmail.com")
 
-        val phones = arrayOf("1231231231","1241241241","1251251251","1261261261","1271271271","1281281281","1291291291","1311311311")
+        val phones = arrayOf("1231231231","1241241241","1251251251","1261261261","1271271271","1281281281","1291291291")
         val password = "Pass@123"
         var createdDate = Date()
-        val usernames = arrayOf("naruto10","itachi77","virat18","therock","anadearmas","familyguy","meme.tamil","cristiano")
-        val fullnames = arrayOf("Naruto Uzumaki","Itachi Uchiha","Virat Kohli","Dwayne Johnson","Ana De Armas","Family Guy","Memes Tamil","Cristiano Ronaldo")
-        val privateaccounts = arrayOf(false,false,false,false,false,true,true,false)
-        val userIds = arrayOf(1,2,3,4,5,6,7,8)
-        val accountIds = arrayOf(1,2,3,4,5,6,7,8)
-        val profilePictures = arrayOf(R.drawable.narutocropped,R.drawable.itachicropped,
+        val usernames = arrayOf("naruto10","itachi77","virat18","therock","anadearmas","familyguy","cristiano")
+        val fullnames = arrayOf("Naruto Uzumaki","Itachi Uchiha","Virat Kohli","Dwayne Johnson","Ana De Armas","Family Guy","Cristiano Ronaldo")
+        val privateaccounts = arrayOf(false,false,false,false,false,true,false)
+        val userIds = arrayOf(1,2,3,4,5,6,7)
+        val accountIds = arrayOf(1,2,3,4,5,6,7)
+        val profilePictures = arrayOf(R.drawable.narutocropped,R.drawable.itachicroppedn,
                                 R.drawable.viratcropped,R.drawable.rockcropped,R.drawable.anacropped,
-                                R.drawable.familyguycropped,R.drawable.dankcropped,R.drawable.ronaldocropped)
+                                R.drawable.familyguycropped,R.drawable.ronaldocropped)
 
         for(i in emails.indices){
             injectDataRepository.addAccount(emails[i],
@@ -54,8 +53,8 @@ class InjectDataViewModel @Inject constructor(
 
         }
 
-        val postUserIds = arrayOf(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,5,5,6,6,7,8,8,8)
-        val postIds = arrayOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23)
+        val postUserIds = arrayOf(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5,5,5,6,6,7,7,7)
+        val postIds = arrayOf(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22)
         val descriptions = arrayOf(
             "👊 I don't care who I have to fight! If he rips my arms out, I'll kick him to death! If he rips my legs off, I'll bite him to death! If he rips my head off, I'll stare him to death! And if he gouges out my eyes, I'll curse him from the grave! 😠💪 Even if I'm torn to shreds, I'm taking Sasuke back from Orochimaru! 🦾👀💀",
             "💔 The pain of being alone is completely out of this world, isn't it? I don't know why, but I understand your feelings so much, it actually hurts. 😢",
@@ -76,7 +75,6 @@ class InjectDataViewModel @Inject constructor(
             "Spending time with loved ones is always the best medicine ❤️",
             "Do you know what's funnier than 24? Twenty-five! 😂🤣",
             "You know what really grinds my gears? 😤🦾",
-            null,
             "🙌🏽 Nothing worth having comes easy. Hard work pays off. 💪🏽🔥",
             "👀 Check out my new kicks! Thanks to nike for keeping me fresh on the pitch. 🙏🏽👟",
             "💪🏽 Putting in the work to be my best self. It's not about being perfect, it's about progress. 🔥👊🏽"
@@ -102,7 +100,6 @@ class InjectDataViewModel @Inject constructor(
             "San Francisco",
             "Seoul",
             "Singapore",
-            "Vancouver",
             "Spain",
             "Spain",
             "Spain"
@@ -113,23 +110,22 @@ class InjectDataViewModel @Inject constructor(
             R.drawable.narutopost2,
             R.drawable.narutopost3,
             R.drawable.narutopost4,
-            R.drawable.narutopost5,
+            R.drawable.narutopostn5,
             R.drawable.itachipost1,
             R.drawable.itachipost2,
             R.drawable.itachipost3,
             R.drawable.itachipost4,
             R.drawable.viratpost1,
-            R.drawable.viratpost2,
-            R.drawable.viratpost3,
-            R.drawable.rockpost1,
-            R.drawable.rockpost2,
+            R.drawable.viratpostn2,
+            R.drawable.viratpostn3,
+            R.drawable.rockpostn11,
+            R.drawable.rockpostn2,
             R.drawable.anapost1,
             R.drawable.anapost2,
             R.drawable.anapost3,
-            R.drawable.fampost1,
+            R.drawable.fampostn1,
             R.drawable.fampost2,
-            R.drawable.dankpost1,
-            R.drawable.ronaldopost1,
+            R.drawable.ronaldopostn1,
             R.drawable.ronaldopost2,
             R.drawable.ronaldopost3
         )

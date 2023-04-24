@@ -1,6 +1,7 @@
 package com.example.instagramv1.data.repository.impl
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.example.instagramv1.data.dao.AccountDao
 import com.example.instagramv1.data.dao.NotificationDao
 import com.example.instagramv1.data.dao.PostDao
@@ -55,6 +56,7 @@ class InjectDataRepositoryImpl(
         location: String?,
         postId : Int
     ) {
+        Log.d("Injecting", "$userId $createdDate $image $description $location $postId");
         postDao.insertPost(Post(userId,createdDate,image,description,location,postId))
     }
 

@@ -33,6 +33,7 @@ import com.example.instagramv1.cropimage.CropState
 import com.example.instagramv1.cropimage.CropperView
 import com.example.instagramv1.databinding.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class CropImageFragment : Fragment(),GalleryViewRecyclerAdapter.OnEventListener {
@@ -56,6 +57,13 @@ class CropImageFragment : Fragment(),GalleryViewRecyclerAdapter.OnEventListener 
             R.layout.fragment_crop_image2, container, false)
         cropImageBinding.addPostViewModel = addPostViewModel
         return cropImageBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(getImagesCursor()!!.count > 0){
+            view?.findViewById<View>(R.id.no_images_found)?.visibility = View.GONE
+        }
     }
 
     private fun getImagesCursor(): Cursor? {
@@ -155,9 +163,34 @@ class CropImageFragment : Fragment(),GalleryViewRecyclerAdapter.OnEventListener 
         cursor.moveToFirst()
 
         if(addPostViewModel.galleryImagePath == null){
-            addPostViewModel.galleryImagePath = cursor.getString(1)
+            if(cursor.count>0){
+                view.findViewById<View>(R.id.no_images_found).visibility = View.GONE
+                addPostViewModel.galleryImagePath = cursor.getString(1)
+                loadNewImage(addPostViewModel.galleryImagePath!!)
+            }
+            else{
+                view.findViewById<View>(R.id.no_images_found).visibility = View.VISIBLE
+            }
+
         }
-        loadNewImage(addPostViewModel.galleryImagePath!!)
+        else{
+            val file = File(addPostViewModel.galleryImagePath!!)
+            if(file.exists()){
+                loadNewImage(addPostViewModel.galleryImagePath!!)
+            }
+            else{
+                if(cursor.count>0){
+                    view.findViewById<View>(R.id.no_images_found).visibility = View.GONE
+                    addPostViewModel.galleryImagePath = cursor.getString(1)
+                    loadNewImage(addPostViewModel.galleryImagePath!!)
+                }
+                else{
+                    view.findViewById<View>(R.id.no_images_found).visibility = View.VISIBLE
+                }
+            }
+        }
+
+
         Log.d("Images New ",addPostViewModel.galleryImagePath.toString())
 //        loadNewImage(addPostViewModel.galleryImagePath!!)
 
@@ -290,12 +323,12 @@ class CropImageFragment : Fragment(),GalleryViewRecyclerAdapter.OnEventListener 
     }
 
     private fun hasGalleryPermission(): Boolean {
-        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun askForGalleryPermission() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            requireActivity(), arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
             REQUEST_CODE_READ_PERMISSION
         )
     }

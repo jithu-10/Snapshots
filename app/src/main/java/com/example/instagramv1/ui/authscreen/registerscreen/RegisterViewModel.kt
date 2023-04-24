@@ -27,7 +27,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     suspend fun isEmailAlreadyExist() : Boolean{
-        return registerRepository.isEmailAlreadyExist(email)
+        return registerRepository.isEmailAlreadyExist(email.lowercase())
 
     }
 
@@ -37,7 +37,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     suspend fun registerUser() : Boolean{
-        val registerData = UserData(userName,fullName,email,phone,password)
+        val registerData = UserData(userName,fullName,email.lowercase(),phone,password)
         return registerRepository.registerUser(registerData)
     }
 }

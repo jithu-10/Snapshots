@@ -487,11 +487,17 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
 
             if(userId == post_owner_id){
 
-                (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.frame_page,ProfileFragment(),"PROFILE_FRAGMENT")
-                    addToBackStack("PROFILE_FRAGMENT")
-                    commit()
+                if(eventListener!=null){
+                    eventListener.onPostItemClickEvent()
                 }
+                else{
+                    (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_page,ProfileFragment(),"PROFILE_FRAGMENT")
+                        addToBackStack("PROFILE_FRAGMENT")
+                        commit()
+                    }
+                }
+
 
 
 //                if(isFragmentInBackstack((FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager,"PROFILE_FRAGMENT")){
@@ -519,18 +525,24 @@ class PostsRecyclerAdapter(val postViewModel: PostViewModel,val eventListener: E
             }
 
             else{
-                val othersProfileFragment = OthersProfileFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt("OTHER_USER_ID",post_owner_id)
+                if(eventListener!=null && eventListener is OthersProfileFragment){
+                    eventListener.onPostItemClickEvent()
+                }
+                else{
+                    val othersProfileFragment = OthersProfileFragment().apply {
+                        arguments = Bundle().apply {
+                            putInt("OTHER_USER_ID",post_owner_id)
+                        }
+                    }
+                    //othersProfileFragment.arguments?.putInt("OTHER_USER_ID",post_owner_id)
+
+                    (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.frame_page,othersProfileFragment)
+                        addToBackStack(null)
+                        commit()
                     }
                 }
-                //othersProfileFragment.arguments?.putInt("OTHER_USER_ID",post_owner_id)
 
-                (FragmentComponentManager.findActivity(postViewBinding.root.context) as AppCompatActivity).supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.frame_page,othersProfileFragment)
-                    addToBackStack(null)
-                    commit()
-                }
             }
 
 //            if(eventListener!=null){

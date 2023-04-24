@@ -20,6 +20,7 @@ import com.example.instagramv1.adapters.PostsRecyclerAdapter
 import com.example.instagramv1.model.FilterOptions
 import com.example.instagramv1.ui.mainscreen.PostViewModel
 import com.example.instagramv1.ui.searchscreen.SearchFragment
+import com.example.instagramv1.utils.DelayClickListener
 import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -65,9 +66,16 @@ class ExploreFragment : Fragment() {
                 }
             }
 
-            view.findViewById<ImageView>(R.id.imgViewSortBtn).setOnClickListener {
-                showFilterBottomSheetFragment()
-            }
+            view.findViewById<ImageView>(R.id.imgViewSortBtn).setOnClickListener(object : DelayClickListener(){
+                override fun onDelayClick() {
+                    showFilterBottomSheetFragment()
+                }
+
+            })
+
+//            view.findViewById<ImageView>(R.id.imgViewSortBtn).setOnClickListener {
+//                showFilterBottomSheetFragment()
+//            }
 
 
             postsRecyclerView = view.findViewById<RecyclerView>(R.id.explore_page_posts_recycler_view)

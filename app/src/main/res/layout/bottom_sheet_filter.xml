@@ -27,24 +27,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Recently added posts"
+            android:theme="@style/RadioButtonStyle"
             android:padding="20dp"/>
         <RadioButton
             android:id="@+id/sortByDateAscRadioBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
+            android:theme="@style/RadioButtonStyle"
             android:text="Old posts"/>
         <RadioButton
             android:id="@+id/sortByMostLikesRadioBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
+            android:theme="@style/RadioButtonStyle"
             android:text="Most Liked Post"/>
         <RadioButton
             android:id="@+id/sortByMostCommentedRadioBtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
+            android:theme="@style/RadioButtonStyle"
             android:text="Most Commented Post"/>
     </RadioGroup>
 

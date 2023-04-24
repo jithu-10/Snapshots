@@ -22,6 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
@@ -40,6 +42,7 @@ import com.example.instagramv1.cropimage.CropperView
 import com.example.instagramv1.databinding.FragmentProfilePictureCropBinding
 import com.example.instagramv1.ui.addpostscreen.CropImageFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -68,6 +71,23 @@ class ProfilePictureCropFragment : Fragment(),GalleryViewRecyclerAdapter.OnEvent
             R.layout.fragment_profile_picture_crop, container, false)
         profilePictureCropBinding.editProfileViewModel = viewModel
         return profilePictureCropBinding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(getImagesCursor()!!.count > 0){
+            view?.findViewById<View>(R.id.no_images_found)?.visibility = View.GONE
+        }
+
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.profilePicture = viewModel.originalPicture
+                    viewModel.galleryImagePath = null
+                    parentFragmentManager.popBackStack()
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun getImagesCursor(): Cursor? {
@@ -136,6 +156,7 @@ class ProfilePictureCropFragment : Fragment(),GalleryViewRecyclerAdapter.OnEvent
         mBitmap = viewModel.originalPicture
 
 
+
         galleryRecyclerView = view.findViewById<RecyclerView>(R.id.galleryRecyclerView)
         galleryRecyclerView.layoutManager = GridLayoutManager(requireActivity(),4)
         galleryViewRecyclerAdapter = GalleryViewRecyclerAdapter(viewModel,this)
@@ -170,10 +191,35 @@ class ProfilePictureCropFragment : Fragment(),GalleryViewRecyclerAdapter.OnEvent
         cursor.moveToFirst()
 
         if(viewModel.galleryImagePath == null){
-            viewModel.galleryImagePath = cursor.getString(1)
+            if(cursor.count>0){
+                view.findViewById<View>(R.id.no_images_found).visibility = View.GONE
+                viewModel.galleryImagePath = cursor.getString(1)
+                loadNewImage(viewModel.galleryImagePath!!)
+            }
+            else{
+                view.findViewById<View>(R.id.no_images_found).visibility = View.VISIBLE
+            }
+
 
         }
-        loadNewImage(viewModel.galleryImagePath!!)
+        else{
+            val file = File(viewModel.galleryImagePath!!)
+            if(file.exists()){
+                loadNewImage(viewModel.galleryImagePath!!)
+            }
+            else{
+                if(cursor.count>0){
+                    view.findViewById<View>(R.id.no_images_found).visibility = View.GONE
+                    viewModel.galleryImagePath = cursor.getString(1)
+                    loadNewImage(viewModel.galleryImagePath!!)
+                }
+                else{
+                    view.findViewById<View>(R.id.no_images_found).visibility = View.VISIBLE
+                }
+            }
+
+        }
+        //loadNewImage(viewModel.galleryImagePath!!)
 
         profilePictureCropBinding.openCamera.setOnClickListener {
             startCameraIntent()
@@ -283,12 +329,12 @@ class ProfilePictureCropFragment : Fragment(),GalleryViewRecyclerAdapter.OnEvent
     }
 
     private fun hasGalleryPermission(): Boolean {
-        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        return (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun askForGalleryPermission() {
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            requireActivity(), arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
             REQUEST_CODE_READ_PERMISSION
         )
     }
@@ -365,5 +411,7 @@ class ProfilePictureCropFragment : Fragment(),GalleryViewRecyclerAdapter.OnEvent
     override fun onEventClick() {
         loadNewImage(viewModel.galleryImagePath!!)
     }
+
+
 
 }
