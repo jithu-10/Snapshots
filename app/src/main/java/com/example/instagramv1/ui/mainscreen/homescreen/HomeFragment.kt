@@ -73,18 +73,18 @@ class HomeFragment : Fragment() {
                 }
             }
 
-            view.findViewById<ImageView>(R.id.cameraLogo).setOnClickListener {
-
-                getPermission()
-                if(checkForPermission()){
-                    val intent = Intent(requireActivity(),AddPostActivity::class.java).apply {
-                        putExtra("OPEN_CAMERA",1)
-                    }
-                    startActivity(intent)
-                }
-
-
-            }
+//            view.findViewById<ImageView>(R.id.cameraLogo).setOnClickListener {
+//
+//                getPermission()
+//                if(checkForPermission()){
+//                    val intent = Intent(requireActivity(),AddPostActivity::class.java).apply {
+//                        putExtra("OPEN_CAMERA",1)
+//                    }
+//                    startActivity(intent)
+//                }
+//
+//
+//            }
 
 
             val postsRecyclerView = view.findViewById<RecyclerView>(R.id.home_page_posts_recycler_view)
