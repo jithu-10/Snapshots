@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Remove"
         android:id="@+id/removeBtn"
-        android:textColor="#d11a2a"/>
+        android:textColor="@color/deleteColor"/>
 
     <View
         android:id="@+id/divider2"

@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:id="@+id/deleteTv"
-            android:textColor="#d11a2a"
+            android:textColor="@color/deleteColor"
             android:text="Delete Post"
             style="@style/TextViews"
             android:textSize="17sp"
